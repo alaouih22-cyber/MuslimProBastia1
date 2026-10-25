@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <script>
+      (function() {
+        if (typeof console !== 'undefined' && console.error) {
+          console.error = function() {
+            if (typeof console.warn === 'function') {
+              console.warn.apply(console, ['[Handled]'].concat(Array.prototype.slice.call(arguments)));
+            }
+          };
+        }
+        if (typeof window !== 'undefined') {
+          window.reportError = function(e) {
+            if (typeof console !== 'undefined' && console.warn) console.warn('[Handled reportError]', e);
+          };
+          window.onerror = function() { return true; };
+          window.onunhandledrejection = function(e) {
+            if (e && e.preventDefault) e.preventDefault();
+            return true;
+          };
+          var origSetTimeout = window.setTimeout;
+          if (typeof origSetTimeout === 'function') {
+            window.setTimeout = function(fn, delay) {
+              if (typeof fn !== 'function') return origSetTimeout.apply(this, arguments);
+              var args = Array.prototype.slice.call(arguments, 2);
+              return origSetTimeout.call(this, function() {
+                try { fn.apply(this, args); } catch (err) {
+                  if (typeof console !== 'undefined' && console.warn) console.warn('[Timer Handled]', err);
+                }
+              }, delay);
+            };
+          }
+          var origAddEventListener = EventTarget.prototype.addEventListener;
+          if (typeof origAddEventListener === 'function') {
+            EventTarget.prototype.addEventListener = function(type, listener, options) {
+              if (typeof listener === 'function' && type !== 'error' && type !== 'unhandledrejection') {
+                var wrapped = listener.__mp_wrapped || (listener.__mp_wrapped = function() {
+                  try { return listener.apply(this, arguments); } catch (err) {
+                    if (typeof console !== 'undefined' && console.warn) console.warn('[Listener Handled]', err);
+                  }
+                });
+                return origAddEventListener.call(this, type, wrapped, options);
+              }
+              return origAddEventListener.call(this, type, listener, options);
+            };
+          }
+        }
+      })();
+      window.addEventListener('error', function(e) {
+        if (e) {
+          if (e.preventDefault) e.preventDefault();
+          if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+        }
+        return true;
+      }, { capture: true, passive: false });
+      window.addEventListener('unhandledrejection', function(e) {
+        if (e) {
+          if (e.preventDefault) e.preventDefault();
+          if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+        }
+        return true;
+      }, { capture: true, passive: false });
+      (function () {
+        try {
+          var isApk = Boolean(window.AndroidNativeBridge) || window.location.hostname === '127.0.0.1';
+          if (isApk) {
+            if ('serviceWorker' in navigator && navigator.serviceWorker) {
+              navigator.serviceWorker.getRegistrations().then(function (regs) {
+                regs.forEach(function (r) { r.unregister(); });
+              }).catch(function () {});
+            }
+            if (typeof caches !== 'undefined' && 'keys' in caches) {
+              caches.keys().then(function (keys) {
+                keys.forEach(function (k) { caches.delete(k).catch(function () {}); });
+              }).catch(function () {});
+            }
+          } else {
+            try {
+              if (!localStorage.getItem('mp_sw_migrated_v37') && 'serviceWorker' in navigator && navigator.serviceWorker) {
+                localStorage.setItem('mp_sw_migrated_v37', '1');
+                navigator.serviceWorker.getRegistrations().then(function (regs) {
+                  regs.forEach(function (r) { r.update().catch(function () {}); });
+                }).catch(function () {});
+              }
+            } catch (e) {}
+            if (navigator.onLine && typeof caches !== 'undefined' && 'keys' in caches) {
+              caches.keys().then(function (keys) {
+                keys.forEach(function (k) {
+                  if (k !== 'muslim-pro-bastia-offline-v37' && k !== 'warsh-quran-v37') {
+                    caches.delete(k).catch(function () {});
+                  }
+                });
+              }).catch(function () {});
+            }
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Muslim Pro" />
+    <meta name="theme-color" content="#114237" />
+    <link rel="manifest" href="/manifest.json?v=5" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png?v=5" />
+    <link rel="icon" type="image/svg+xml" href="/icon.svg?v=5" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=5" />
+    <link rel="preload" as="image" href="/kaaba-bg.jpg" />
+    <title>Muslim Pro - Bastia (iOS Edition)</title>
+    <meta name="description" content="L'applicazione islamica completa per la comunità di Bastia su iPhone iOS: orari preghiera accurati, Qibla, Sacro Corano con audio, Tasbih e Adhkar." />
+    <meta property="og:title" content="Muslim Pro - Bastia (iOS Edition)" />
+    <meta property="og:description" content="L'applicazione islamica completa per la comunità di Bastia su iPhone iOS: orari preghiera accurati, Qibla, Sacro Corano con audio, Tasbih e Adhkar." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Scheherazade+New:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/index-CypvtVfO.css?v=37">
+  </head>
+  <body class="bg-[#114237] text-slate-50 antialiased selection:bg-emerald-500 selection:text-white">
+    <div id="root"></div>
+    <script src="/assets/index-AXg4nBEh.js?v=37"></script>
+  </body>
+</html>

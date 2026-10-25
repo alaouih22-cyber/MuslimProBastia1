@@ -1,0 +1,106 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile document",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "role": { "type": "string", "enum": ["user", "admin"] },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["uid", "email", "displayName"]
+    },
+    "CommunityPost": {
+      "title": "CommunityPost",
+      "description": "Social feed post for community sharing",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "authorId": { "type": "string" },
+        "authorName": { "type": "string" },
+        "authorPhoto": { "type": "string" },
+        "authorEmail": { "type": "string" },
+        "isAdmin": { "type": "boolean" },
+        "content": { "type": "string", "maxLength": 2000 },
+        "category": { "type": "string", "enum": ["general", "announcement", "quran", "dua", "event"] },
+        "likesCount": { "type": "number" },
+        "commentsCount": { "type": "number" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["authorId", "authorName", "content", "createdAt"]
+    },
+    "PostComment": {
+      "title": "PostComment",
+      "description": "Comment on a community post",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "postId": { "type": "string" },
+        "authorId": { "type": "string" },
+        "authorName": { "type": "string" },
+        "authorPhoto": { "type": "string" },
+        "content": { "type": "string", "maxLength": 1000 },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["postId", "authorId", "authorName", "content", "createdAt"]
+    },
+    "CommunityAlert": {
+      "title": "CommunityAlert",
+      "description": "Mosque or Admin official announcement for all users",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "authorId": { "type": "string" },
+        "authorName": { "type": "string" },
+        "title": { "type": "string", "maxLength": 200 },
+        "body": { "type": "string", "maxLength": 2000 },
+        "category": { "type": "string", "enum": ["urgent", "prayer", "event", "general"] },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["authorId", "title", "body", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profile data"
+    },
+    "/communityPosts/{postId}": {
+      "schema": "CommunityPost",
+      "description": "Community posts and reflections"
+    },
+    "/communityPosts/{postId}/comments/{commentId}": {
+      "schema": "PostComment",
+      "description": "Comments on community posts"
+    },
+    "/communityPosts/{postId}/likes/{userId}": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "userId": { "type": "string" },
+          "createdAt": { "type": "string" }
+        },
+        "required": ["userId"]
+      },
+      "description": "Individual like on a community post"
+    },
+    "/communityAlerts/{alertId}": {
+      "schema": "CommunityAlert",
+      "description": "Official community alerts and mosque announcements"
+    },
+    "/prayerDevices/{deviceId}": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "deviceId": { "type": "string" },
+          "fcmToken": { "type": "string" }
+        }
+      },
+      "description": "Push notification token registry for devices"
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "Remix MuslimProBastia-IOS-EDITION-",
+  "description": "L'applicazione islamica completa per la comunità di Bastia su iPhone iOS: orari preghiera accurati, Qibla, Sacro Corano con audio, Tasbih e Adhkar.",
+  "requestFramePermissions": [
+    "geolocation",
+    "microphone"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

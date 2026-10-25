@@ -1,0 +1,331 @@
+[
+  {
+    "deviceId": "dev_muq205ln_y8ln286o",
+    "subscription": {
+      "endpoint": "https://web.push.apple.com/QFhrmq93TCJLF1uRxYzeiEoWaLoA1INPVBtV7m725T1IEB7gWA4GVkmvUd52XgkGU2uXw97BKImcVXOluM0UrjdZt0Mg-YKAzzR2mdrXqxTsXksYovuu9fiNv_pur3C9oYnFcT877KTZunmAwwbAbFRLc6M0EhGKJf7D5ZEFVhU",
+      "keys": {
+        "p256dh": "BKoV48Qhukd82DaKOQL4QFtLauWIm5wWatmIaOKM399S9PZ6yuME_LqC8QoIBQiTf41kYV7Frm4GFvy4Bi_EC4g",
+        "auth": "_jGW4Xp0eW6XknspYtnYNg"
+      }
+    },
+    "locationName": "Bastia Umbra",
+    "timezone": "Europe/Rome",
+    "athanVoice": "/audio/makkah.mp3",
+    "prayers": [
+      {
+        "id": "Fajr",
+        "nameIt": "Fajr",
+        "nameAr": "الفجر",
+        "time": "05:51",
+        "alertMode": "sound"
+      },
+      {
+        "id": "Dhuhr",
+        "nameIt": "Dhuhr",
+        "nameAr": "الظهر",
+        "time": "13:02",
+        "alertMode": "sound"
+      },
+      {
+        "id": "Asr",
+        "nameIt": "Asr",
+        "nameAr": "العصر",
+        "time": "16:16",
+        "alertMode": "sound"
+      },
+      {
+        "id": "Maghrib",
+        "nameIt": "Maghrib",
+        "nameAr": "المغرب",
+        "time": "18:53",
+        "alertMode": "sound"
+      },
+      {
+        "id": "Isha",
+        "nameIt": "Isha",
+        "nameAr": "العشاء",
+        "time": "20:10",
+        "alertMode": "sound"
+      }
+    ],
+    "firedKeys": [
+      "2026-10-02_Dhuhr_13:02",
+      "2026-10-02_Asr_16:16",
+      "2026-10-02_Maghrib_18:53",
+      "2026-10-02_Isha_20:10",
+      "2026-10-03_Fajr_05:51",
+      "2026-10-03_Dhuhr_13:02",
+      "2026-10-03_Asr_16:16",
+      "2026-10-03_Maghrib_18:53",
+      "2026-10-03_Isha_20:10",
+      "2026-10-04_Fajr_05:51",
+      "2026-10-10_Dhuhr_13:02",
+      "2026-10-10_Asr_16:16",
+      "2026-10-10_Maghrib_18:53",
+      "2026-10-10_Isha_20:10",
+      "2026-10-11_Fajr_05:51",
+      "2026-10-11_Dhuhr_13:02",
+      "2026-10-11_Asr_16:16",
+      "2026-10-11_Maghrib_18:53",
+      "2026-10-11_Isha_20:10",
+      "2026-10-12_Fajr_05:51"
+    ]
+  },
+  {
+    "deviceId": "dev_muqy35aa_sogktlyl",
+    "subscription": {
+      "endpoint": "https://web.push.apple.com/QF1SuLguhLCHAJWc2QmhWB9Sx02Rgz7lV_8OorCXCJTQ3fT1DEVsE4wtNnQ6N_hyXmQGK5NZY1RHU6-l7v_ddUJGzJxaWRFrSTnqDhuib90AVlCHFZh7yRkPCoUai-PSmDorDkDtbftURkvd_KFF9OgEYh7nLx-te7yvZIaEjg8",
+      "keys": {
+        "p256dh": "BEqyPYhS07wWZO_zpPI5xCXQUPdBsr_uYWxYhmmVyxbl85kov1NqSM7qSRDowu9jSImGYd3u9hoWsvjbqVw4mQ8",
+        "auth": "3lvTRhjW1J_WZbO_a7g1Vw"
+      }
+    },
+    "locationName": "Bastia Umbra",
+    "timezone": "Europe/Rome",
+    "athanVoice": "/audio/makkah.mp3",
+    "prayers": [
+      {
+        "id": "Fajr",
+        "nameIt": "Fajr",
+        "nameAr": "الفجر",
+        "time": "05:51",
+        "alertMode": "sound"
+      },
+      {
+        "id": "Dhuhr",
+        "nameIt": "Dhuhr",
+        "nameAr": "الظهر",
+        "time": "13:02",
+        "alertMode": "sound"
+      },
+      {
+        "id": "Asr",
+        "nameIt": "Asr",
+        "nameAr": "العصر",
+        "time": "16:16",
+        "alertMode": "sound"
+      },
+      {
+        "id": "Maghrib",
+        "nameIt": "Maghrib",
+        "nameAr": "المغرب",
+        "time": "18:53",
+        "alertMode": "sound"
+      },
+      {
+        "id": "Isha",
+        "nameIt": "Isha",
+        "nameAr": "العشاء",
+        "time": "20:10",
+        "alertMode": "sound"
+      }
+    ],
+    "firedKeys": [
+      "2026-10-02_Asr_16:16",
+      "2026-10-02_Maghrib_18:53",
+      "2026-10-02_Isha_20:10",
+      "2026-10-03_Fajr_05:51",
+      "2026-10-03_Dhuhr_13:02",
+      "2026-10-03_Asr_16:16",
+      "2026-10-03_Maghrib_18:53",
+      "2026-10-03_Isha_20:10",
+      "2026-10-04_Fajr_05:51",
+      "2026-10-10_Dhuhr_13:02",
+      "2026-10-10_Asr_16:16",
+      "2026-10-10_Maghrib_18:53",
+      "2026-10-10_Isha_20:10",
+      "2026-10-11_Fajr_05:51",
+      "2026-10-11_Dhuhr_13:02",
+      "2026-10-11_Asr_16:16",
+      "2026-10-11_Maghrib_18:53",
+      "2026-10-11_Isha_20:10",
+      "2026-10-12_Fajr_05:51"
+    ]
+  },
+  {
+    "deviceId": "dev_mur3s355_5onmmvk3",
+    "subscription": {
+      "endpoint": "https://web.push.apple.com/QGsH5gVqpZ6cORanH9Mn0MjUJqy_8QKpLPhr7ke822voWE2akiAju_z0gtbG8rRMmbyUpEBApQMzMeFIqjmzTxMKYAwkvTOC57bkOBxysB5E5SXpUvNkhbXATqBR3TY2PWcY1dkpNuA_PF8ZY4N8hS9XPiDupjFApqGqvpTUpOg",
+      "keys": {
+        "p256dh": "BIZugz8VUusJvs1GGc_3_PVPZ1zAMiS_iCBQypmnD1FPhxYkkNRL3llBH1DTKFikFPC2jb04Q6q4zaal20AA6YA",
+        "auth": "vEP1zacVxdtxDwWvyK3PYg"
+      }
+    },
+    "locationName": "Bastia Umbra",
+    "timezone": "Europe/Rome",
+    "athanVoice": "/audio/makkah.mp3",
+    "prayers": [
+      {
+        "id": "Fajr",
+        "nameIt": "Fajr",
+        "nameAr": "الفجر",
+        "time": "05:51",
+        "alertMode": "sound"
+      },
+      {
+        "id": "Dhuhr",
+        "nameIt": "Dhuhr",
+        "nameAr": "الظهر",
+        "time": "13:02",
+        "alertMode": "sound"
+      },
+      {
+        "id": "Asr",
+        "nameIt": "Asr",
+        "nameAr": "العصر",
+        "time": "16:16",
+        "alertMode": "sound"
+      },
+      {
+        "id": "Maghrib",
+        "nameIt": "Maghrib",
+        "nameAr": "المغرب",
+        "time": "18:53",
+        "alertMode": "sound"
+      },
+      {
+        "id": "Isha",
+        "nameIt": "Isha",
+        "nameAr": "العشاء",
+        "time": "20:10",
+        "alertMode": "sound"
+      }
+    ],
+    "firedKeys": [
+      "2026-10-02_Maghrib_18:53",
+      "2026-10-02_Isha_20:10",
+      "2026-10-03_Fajr_05:51",
+      "2026-10-03_Dhuhr_13:02",
+      "2026-10-03_Asr_16:16",
+      "2026-10-03_Maghrib_18:53",
+      "2026-10-03_Isha_20:10",
+      "2026-10-04_Fajr_05:51",
+      "2026-10-10_Dhuhr_13:02",
+      "2026-10-10_Asr_16:16",
+      "2026-10-10_Maghrib_18:53",
+      "2026-10-10_Isha_20:10",
+      "2026-10-11_Fajr_05:51",
+      "2026-10-11_Dhuhr_13:02",
+      "2026-10-11_Asr_16:16",
+      "2026-10-11_Maghrib_18:53",
+      "2026-10-11_Isha_20:10",
+      "2026-10-12_Fajr_05:51"
+    ]
+  },
+  {
+    "deviceId": "dev_muplqe9i_mfzvlxkl",
+    "subscription": {
+      "endpoint": "https://fcm.googleapis.com/fcm/send/dCumUu0dLOg:APA91bHBSW5CZrdTXbA4SPEs30bZGqF23k9ycLG9MAcpbBXw7M5XbDEoRu-AEC5OwEAGNp6gYPKzrtlVSNmROocl82WE6zMM3dKkrPZjfYIPPmEiKOjb7jePvI8WvS25a0IpKq13wh9X",
+      "keys": {
+        "p256dh": "BCVoLG-oZK9CMYnaiFshNrwglNzr-VcV-rJTuf1tZjnkn6E1VGuEMhCjlNEGjM8blfEygEAHtPIx9_lYUsZQblU",
+        "auth": "VDx3lun8Kq3aBgoor_GfFg"
+      }
+    },
+    "locationName": "Bastia Umbra",
+    "timezone": "Europe/Rome",
+    "athanVoice": "/audio/morocco.mp3",
+    "prayers": [
+      {
+        "id": "Fajr",
+        "nameIt": "Fajr",
+        "nameAr": "الفجر",
+        "time": "06:15",
+        "alertMode": "sound"
+      },
+      {
+        "id": "Dhuhr",
+        "nameIt": "Dhuhr",
+        "nameAr": "الظهر",
+        "time": "13:00",
+        "alertMode": "sound"
+      },
+      {
+        "id": "Asr",
+        "nameIt": "Asr",
+        "nameAr": "العصر",
+        "time": "16:06",
+        "alertMode": "sound"
+      },
+      {
+        "id": "Maghrib",
+        "nameIt": "Maghrib",
+        "nameAr": "المغرب",
+        "time": "18:40",
+        "alertMode": "sound"
+      },
+      {
+        "id": "Isha",
+        "nameIt": "Isha",
+        "nameAr": "العشاء",
+        "time": "19:40",
+        "alertMode": "sound"
+      }
+    ],
+    "firedKeys": [
+      "2026-10-10_Dhuhr_13:00",
+      "2026-10-10_Asr_16:06",
+      "2026-10-10_Maghrib_18:40",
+      "2026-10-10_Isha_19:40",
+      "2026-10-11_Fajr_06:15",
+      "2026-10-11_Dhuhr_13:00",
+      "2026-10-11_Asr_16:06",
+      "2026-10-11_Maghrib_18:40",
+      "2026-10-11_Isha_19:40",
+      "2026-10-12_Fajr_06:15"
+    ]
+  },
+  {
+    "deviceId": "dev_mur5g7zc_bxbll4i9",
+    "subscription": {
+      "endpoint": "https://web.push.apple.com/QE3f0Bki17viWd36YzoOGTXfCNV59hSbXXBCs83gZv7V9Dl6NNpd3JnrybX-IoP0KN8opY6ZQgEFCQiTx0OoHic8tIFBvw4hHidZZ_cM7BDEdK2c3P0-nlA1EVY4bDA7wOFbT2bspYSJOhbgJfelncwskbAn5Cdaqyokw8T8nsc",
+      "keys": {
+        "p256dh": "BI-uZLudIoZugMN3uN-KMeSXRcCQdDen75wqq8FQ22Nb4z6gS0LyfUkLPnj_TLHNNZt8HvX97XwdDRPrpVXAFUc",
+        "auth": "rp6BBUY3IwQUxQnLmZhOoQ"
+      }
+    },
+    "locationName": "Bastia Umbra",
+    "timezone": "Europe/Rome",
+    "athanVoice": "/audio/makkah.mp3",
+    "prayers": [
+      {
+        "id": "Fajr",
+        "nameIt": "Fajr",
+        "nameAr": "الفجر",
+        "time": "06:02",
+        "alertMode": "sound"
+      },
+      {
+        "id": "Dhuhr",
+        "nameIt": "Dhuhr",
+        "nameAr": "الظهر",
+        "time": "12:59",
+        "alertMode": "sound"
+      },
+      {
+        "id": "Asr",
+        "nameIt": "Asr",
+        "nameAr": "العصر",
+        "time": "16:05",
+        "alertMode": "sound"
+      },
+      {
+        "id": "Maghrib",
+        "nameIt": "Maghrib",
+        "nameAr": "المغرب",
+        "time": "18:38",
+        "alertMode": "sound"
+      },
+      {
+        "id": "Isha",
+        "nameIt": "Isha",
+        "nameAr": "العشاء",
+        "time": "19:54",
+        "alertMode": "sound"
+      }
+    ],
+    "firedKeys": [
+      "2026-10-11_Isha_19:54",
+      "2026-10-12_Fajr_06:02"
+    ]
+  }
+]

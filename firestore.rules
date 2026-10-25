@@ -1,0 +1,51 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    function isAdmin() {
+      return isAuthenticated() && (
+        request.auth.token.email == 'alaouih22@gmail.com' ||
+        (exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+         get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin')
+      );
+    }
+
+    match /users/{userId} {
+      allow read: if true;
+      allow create, update: if true;
+      allow delete: if isAdmin();
+    }
+
+    match /communityPosts/{postId} {
+      allow read, write: if true;
+
+      match /comments/{commentId} {
+        allow read, write: if true;
+      }
+
+      match /likes/{userId} {
+        allow read, write: if true;
+      }
+    }
+
+    match /communityAlerts/{alertId} {
+      allow read, write: if true;
+    }
+
+    match /prayerDevices/{deviceId} {
+      allow read, write: if true;
+    }
+
+    match /test/{document=**} {
+      allow read, write: if true;
+    }
+  }
+}
