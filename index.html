@@ -47,7 +47,8 @@
           }
 
           // Smart API & Static Asset Fallback for GitHub Pages / Static Hosting
-          var LIVE_BACKEND = 'https://ais-pre-jagwvklisthsahvfn7hafv-666421148062.europe-west1.run.app';
+          var LIVE_BACKEND = 'https://ais-pre-mr4e2i4eum4xde3afw2k4u-552873705925.europe-west3.run.app';
+          window.__MP_LIVE_BACKEND = LIVE_BACKEND;
           var isStaticHost = window.location.hostname.indexOf('github.io') !== -1 ||
                              window.location.hostname.indexOf('vercel.app') !== -1 ||
                              window.location.hostname.indexOf('netlify.app') !== -1 ||
@@ -243,6 +244,16 @@
                   return handleLocalApiFallback(apiPath, init);
                 });
               }
+              if (urlStr.indexOf('./public/') === 0 || urlStr.indexOf('/public/') !== -1) {
+                return origFetch(input, init).then(function(res) {
+                  if (res && res.ok) return res;
+                  var alt = urlStr.replace('./public/', './').replace('/public/', '/');
+                  return origFetch(alt, init);
+                }).catch(function() {
+                  var alt = urlStr.replace('./public/', './').replace('/public/', '/');
+                  return origFetch(alt, init);
+                });
+              }
               return origFetch(input, init);
             };
           }
@@ -250,6 +261,11 @@
       })();
       window.addEventListener('error', function(e) {
         if (e) {
+          var t = e.target;
+          if (t && t.src && typeof t.src === 'string' && t.src.indexOf('/public/') !== -1 && !t.__mpRetried) {
+            t.__mpRetried = true;
+            t.src = t.src.replace('/public/', '/');
+          }
           if (e.preventDefault) e.preventDefault();
           if (e.stopImmediatePropagation) e.stopImmediatePropagation();
         }
@@ -305,10 +321,10 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="Muslim Pro" />
     <meta name="theme-color" content="#114237" />
-    <link rel="manifest" href="./public/manifest.json?v=38" />
-    <link rel="icon" type="image/png" sizes="192x192" href="./public/icon-192.png?v=38" />
-    <link rel="icon" type="image/svg+xml" href="./public/icon.svg?v=38" />
-    <link rel="apple-touch-icon" sizes="180x180" href="./public/apple-touch-icon.png?v=38" />
+    <link rel="manifest" href="./manifest.json?v=39" />
+    <link rel="icon" type="image/png" sizes="192x192" href="./public/icon-192.png?v=39" />
+    <link rel="icon" type="image/svg+xml" href="./public/icon.svg?v=39" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./public/apple-touch-icon.png?v=39" />
     <link rel="preload" as="image" href="./public/kaaba-bg.jpg" />
     <title>Muslim Pro - Bastia (iOS Edition)</title>
     <meta name="description" content="L'applicazione islamica completa per la comunità di Bastia su iPhone iOS: orari preghiera accurati, Qibla, Sacro Corano con audio, Tasbih e Adhkar." />
@@ -319,7 +335,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Scheherazade+New:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./public/assets/index-CypvtVfO.css?v=38" onerror="this.onerror=null;this.href='./assets/index-CypvtVfO.css?v=38';">
+    <link rel="stylesheet" href="./public/assets/index-CypvtVfO.css?v=39" onerror="this.onerror=null;this.href='./assets/index-CypvtVfO.css?v=39';">
   </head>
   <body class="bg-[#114237] text-slate-50 antialiased selection:bg-emerald-500 selection:text-white">
     <div id="root">
@@ -332,10 +348,10 @@
     <script>
       (function() {
         var s = document.createElement('script');
-        s.src = './public/assets/index-AXg4nBEh.js?v=38';
+        s.src = './public/assets/index-AXg4nBEh.js?v=39';
         s.onerror = function() {
           var f = document.createElement('script');
-          f.src = './assets/index-AXg4nBEh.js?v=38';
+          f.src = './assets/index-AXg4nBEh.js?v=39';
           document.body.appendChild(f);
         };
         document.body.appendChild(s);

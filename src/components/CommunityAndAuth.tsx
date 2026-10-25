@@ -1049,7 +1049,7 @@ export function CommunityFeed({
       }}
       className="w-full min-h-screen bg-white text-slate-900 pb-28 pt-2 select-none animate-fade-in"
     >
-      <div className="max-w-xl mx-auto w-full px-3 sm:px-4 flex flex-col gap-4">
+      <div className="max-w-2xl md:max-w-4xl lg:max-w-5xl mx-auto w-full px-3 sm:px-6 lg:px-8 flex flex-col gap-4">
         {/* Top Community Navigation Header */}
         <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-sm flex items-center justify-between gap-3 sticky top-1 z-20">
           <div className="flex items-center gap-3">
