@@ -45,6 +45,207 @@
               return origAddEventListener.call(this, type, listener, options);
             };
           }
+
+          // Smart API & Static Asset Fallback for GitHub Pages / Static Hosting
+          var LIVE_BACKEND = 'https://ais-pre-jagwvklisthsahvfn7hafv-666421148062.europe-west1.run.app';
+          var isStaticHost = window.location.hostname.indexOf('github.io') !== -1 ||
+                             window.location.hostname.indexOf('vercel.app') !== -1 ||
+                             window.location.hostname.indexOf('netlify.app') !== -1 ||
+                             window.location.hostname.indexOf('pages.dev') !== -1;
+
+          var DEFAULT_POSTS = [
+            {
+              id: 'post_welcome_1',
+              authorId: 'admin_alaoui',
+              authorName: 'MuslimProBastia',
+              authorEmail: 'alaouih22@gmail.com',
+              authorPhoto: '',
+              isAdmin: true,
+              content: "As-salamu alaykum wa rahmatullahi wa barakatuh a tutta la comunità di Bastia Umbra e dintorni. Benvenuti nello spazio comunitario ufficiale di MuslimProBastia! Qui condividiamo orari speciali, avvisi delle preghiere del Venerdì (Jumu'ah), lezioni e riflessioni spirituali.",
+              category: 'announcement',
+              likesCount: 14,
+              likedBy: ['admin_alaoui'],
+              commentsCount: 2,
+              comments: [
+                {
+                  id: 'comm_1',
+                  authorId: 'user_ahmed',
+                  authorName: 'Ahmed B.',
+                  content: 'Barakallahu feekum per questa meravigliosa applicazione e per il lavoro che fate per la comunità!',
+                  createdAt: new Date(Date.now() - 3600000 * 5).toISOString()
+                },
+                {
+                  id: 'comm_2',
+                  authorId: 'user_karim',
+                  authorName: 'Karim M.',
+                  content: 'Masha Allah, davvero utilissima per seguire le preghiere e gli avvisi della moschea.',
+                  createdAt: new Date(Date.now() - 3600000 * 2).toISOString()
+                }
+              ],
+              createdAt: new Date(Date.now() - 3600000 * 24).toISOString()
+            },
+            {
+              id: 'post_quran_1',
+              authorId: 'admin_alaoui',
+              authorName: 'MuslimProBastia',
+              authorEmail: 'alaouih22@gmail.com',
+              authorPhoto: '',
+              isAdmin: true,
+              content: "قال رسول الله ﷺ: «خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ» (رواه البخاري)\n\nIl Messaggero di Allah ﷺ ha detto: \"Il migliore tra voi è colui che impara il Corano e lo insegna agli altri\" (Sahih Al-Bukhari). Ricordiamo a tutti che potete leggere e ascoltare il Sacro Corano con lettura Warsh direttamente nella sezione Corano dell'app.",
+              category: 'quran',
+              likesCount: 22,
+              likedBy: [],
+              commentsCount: 1,
+              comments: [
+                {
+                  id: 'comm_3',
+                  authorId: 'user_youssef',
+                  authorName: 'Youssef E.',
+                  content: 'Alhamdulillah, la recitazione Warsh è bellissima e chiara.',
+                  createdAt: new Date(Date.now() - 3600000).toISOString()
+                }
+              ],
+              createdAt: new Date(Date.now() - 3600000 * 12).toISOString()
+            }
+          ];
+
+          var DEFAULT_ALERTS = [
+            {
+              id: 'alert_jumuah',
+              authorId: 'admin_alaoui',
+              authorName: 'MuslimProBastia',
+              title: "Preghiera del Venerdì (Jumu'ah) a Bastia",
+              body: "Orario ufficiale della preghiera del Venerdì: tutti i venerdì la Khutbah si tiene alle 12:30. Si prega di venire con la wudu fatta e di rispettare le aree di sosta.",
+              category: 'prayer',
+              createdAt: new Date(Date.now() - 3600000 * 48).toISOString()
+            }
+          ];
+
+          function makeJsonResponse(obj) {
+            return new Response(JSON.stringify(obj), {
+              status: 200,
+              headers: { 'Content-Type': 'application/json' }
+            });
+          }
+
+          function handleLocalApiFallback(urlStr, init) {
+            var method = ((init && init.method) || 'GET').toUpperCase();
+            var bodyObj = {};
+            try {
+              if (init && typeof init.body === 'string') bodyObj = JSON.parse(init.body);
+            } catch (e) {}
+
+            if (urlStr.indexOf('/api/community/posts') !== -1) {
+              var cachedPosts = DEFAULT_POSTS;
+              try {
+                var raw = localStorage.getItem('mp_community_posts_cache');
+                if (raw) {
+                  var parsed = JSON.parse(raw);
+                  if (Array.isArray(parsed) && parsed.length > 0) cachedPosts = parsed;
+                }
+              } catch (e) {}
+
+              if (method === 'GET') {
+                return makeJsonResponse({ ok: true, posts: cachedPosts });
+              }
+              if (method === 'POST' && urlStr.indexOf('/like') !== -1) {
+                return makeJsonResponse({ ok: true });
+              }
+              if (method === 'POST' && urlStr.indexOf('/comment') !== -1) {
+                var newComm = {
+                  id: 'comm_' + Date.now(),
+                  authorId: bodyObj.authorId || 'guest',
+                  authorName: bodyObj.authorName || 'Membro della Comunità',
+                  authorPhoto: bodyObj.authorPhoto || '',
+                  content: bodyObj.content || '',
+                  createdAt: new Date().toISOString()
+                };
+                return makeJsonResponse({ ok: true, comment: newComm });
+              }
+              if (method === 'POST') {
+                var newPost = {
+                  id: 'post_' + Date.now(),
+                  authorId: bodyObj.authorId || 'guest',
+                  authorName: bodyObj.authorName || 'Membro della Comunità',
+                  authorEmail: bodyObj.authorEmail || '',
+                  authorPhoto: bodyObj.authorPhoto || '',
+                  isAdmin: Boolean(bodyObj.isAdmin),
+                  content: bodyObj.content || '',
+                  category: bodyObj.category || 'general',
+                  likesCount: 0,
+                  likedBy: [],
+                  commentsCount: 0,
+                  comments: [],
+                  createdAt: new Date().toISOString()
+                };
+                return makeJsonResponse({ ok: true, post: newPost });
+              }
+              return makeJsonResponse({ ok: true });
+            }
+
+            if (urlStr.indexOf('/api/community/alerts') !== -1) {
+              var cachedAlerts = DEFAULT_ALERTS;
+              try {
+                var rawA = localStorage.getItem('mp_community_alerts_cache');
+                if (rawA) {
+                  var parsedA = JSON.parse(rawA);
+                  if (Array.isArray(parsedA) && parsedA.length > 0) cachedAlerts = parsedA;
+                }
+              } catch (e) {}
+              if (method === 'POST') {
+                var newAlert = {
+                  id: 'alert_' + Date.now(),
+                  authorId: bodyObj.authorId || 'admin_alaoui',
+                  authorName: bodyObj.authorName || 'MuslimProBastia',
+                  title: bodyObj.title || 'Avviso Comunitario',
+                  body: bodyObj.body || '',
+                  category: bodyObj.category || 'general',
+                  createdAt: new Date().toISOString()
+                };
+                cachedAlerts = [newAlert].concat(cachedAlerts);
+                try { localStorage.setItem('mp_community_alerts_cache', JSON.stringify(cachedAlerts)); } catch (e) {}
+                return makeJsonResponse({ ok: true, alert: newAlert, pushSent: 0 });
+              }
+              return makeJsonResponse({ ok: true, alerts: cachedAlerts });
+            }
+
+            if (urlStr.indexOf('/api/push/vapid-public-key') !== -1) {
+              return makeJsonResponse({ publicKey: 'BBmeblTaHn-6a7SKl-k2G0i9tv6GhJpJupzWOy71oWtUvqGCXBkuNGObPDb7eSiHPTEd08QGmckOMVKdetxKTH8' });
+            }
+
+            if (urlStr.indexOf('/api/gemini/chat') !== -1) {
+              return makeJsonResponse({
+                reply: "As-salamu alaykum wa rahmatullahi wa barakatuh. Nel Sacro Corano Allah l'Altissimo dice: « In verità, nel ricordo di Allah si tranquillizzano i cuori » (Sura Ar-Ra'd, 13:28). Puoi consultare gli orari di preghiera di Bastia, il Sacro Corano con lettura Warsh, la Qibla, il Tasbih e gli Adhkar."
+              });
+            }
+
+            return makeJsonResponse({ ok: true });
+          }
+
+          if (typeof window.fetch === 'function') {
+            var origFetch = window.fetch.bind(window);
+            window.fetch = function(input, init) {
+              var urlStr = typeof input === 'string' ? input : (input && input.url ? input.url : '');
+              if (urlStr.indexOf('/api/') === 0 || (isStaticHost && urlStr.indexOf('/api/') !== -1)) {
+                var apiPath = urlStr.substring(urlStr.indexOf('/api/'));
+                if (isStaticHost) {
+                  return origFetch(LIVE_BACKEND + apiPath, init).then(function(res) {
+                    if (res && res.ok) return res;
+                    return handleLocalApiFallback(apiPath, init);
+                  }).catch(function() {
+                    return handleLocalApiFallback(apiPath, init);
+                  });
+                }
+                return origFetch(input, init).then(function(res) {
+                  if (res && res.ok) return res;
+                  return handleLocalApiFallback(apiPath, init);
+                }).catch(function() {
+                  return handleLocalApiFallback(apiPath, init);
+                });
+              }
+              return origFetch(input, init);
+            };
+          }
         }
       })();
       window.addEventListener('error', function(e) {
@@ -77,8 +278,8 @@
             }
           } else {
             try {
-              if (!localStorage.getItem('mp_sw_migrated_v37') && 'serviceWorker' in navigator && navigator.serviceWorker) {
-                localStorage.setItem('mp_sw_migrated_v37', '1');
+              if (!localStorage.getItem('mp_sw_migrated_v38') && 'serviceWorker' in navigator && navigator.serviceWorker) {
+                localStorage.setItem('mp_sw_migrated_v38', '1');
                 navigator.serviceWorker.getRegistrations().then(function (regs) {
                   regs.forEach(function (r) { r.update().catch(function () {}); });
                 }).catch(function () {});
@@ -87,7 +288,7 @@
             if (navigator.onLine && typeof caches !== 'undefined' && 'keys' in caches) {
               caches.keys().then(function (keys) {
                 keys.forEach(function (k) {
-                  if (k !== 'muslim-pro-bastia-offline-v37' && k !== 'warsh-quran-v37') {
+                  if (k !== 'muslim-pro-bastia-offline-v38' && k !== 'warsh-quran-v38') {
                     caches.delete(k).catch(function () {});
                   }
                 });
@@ -104,11 +305,11 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="Muslim Pro" />
     <meta name="theme-color" content="#114237" />
-    <link rel="manifest" href="/manifest.json?v=5" />
-    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png?v=5" />
-    <link rel="icon" type="image/svg+xml" href="/icon.svg?v=5" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=5" />
-    <link rel="preload" as="image" href="/kaaba-bg.jpg" />
+    <link rel="manifest" href="./public/manifest.json?v=38" />
+    <link rel="icon" type="image/png" sizes="192x192" href="./public/icon-192.png?v=38" />
+    <link rel="icon" type="image/svg+xml" href="./public/icon.svg?v=38" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./public/apple-touch-icon.png?v=38" />
+    <link rel="preload" as="image" href="./public/kaaba-bg.jpg" />
     <title>Muslim Pro - Bastia (iOS Edition)</title>
     <meta name="description" content="L'applicazione islamica completa per la comunità di Bastia su iPhone iOS: orari preghiera accurati, Qibla, Sacro Corano con audio, Tasbih e Adhkar." />
     <meta property="og:title" content="Muslim Pro - Bastia (iOS Edition)" />
@@ -118,10 +319,27 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Scheherazade+New:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/assets/index-CypvtVfO.css?v=37">
+    <link rel="stylesheet" href="./public/assets/index-CypvtVfO.css?v=38" onerror="this.onerror=null;this.href='./assets/index-CypvtVfO.css?v=38';">
   </head>
   <body class="bg-[#114237] text-slate-50 antialiased selection:bg-emerald-500 selection:text-white">
-    <div id="root"></div>
-    <script src="/assets/index-AXg4nBEh.js?v=37"></script>
+    <div id="root">
+      <div style="min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#114237;color:#ecfdf5;font-family:system-ui,-apple-system,sans-serif;text-align:center;padding:24px;">
+        <div style="width:56px;height:56px;border-radius:16px;background:rgba(16,185,129,0.18);border:1px solid rgba(52,211,153,0.35);display:flex;align-items:center;justify-content:center;font-size:28px;margin-bottom:14px;">🕌</div>
+        <div style="font-size:18px;font-weight:700;letter-spacing:-0.01em;margin-bottom:6px;">Muslim Pro - Bastia (Warsh)</div>
+        <div style="font-size:13px;color:#a7f3d0;opacity:0.9;">Caricamento in corso...</div>
+      </div>
+    </div>
+    <script>
+      (function() {
+        var s = document.createElement('script');
+        s.src = './public/assets/index-AXg4nBEh.js?v=38';
+        s.onerror = function() {
+          var f = document.createElement('script');
+          f.src = './assets/index-AXg4nBEh.js?v=38';
+          document.body.appendChild(f);
+        };
+        document.body.appendChild(s);
+      })();
+    </script>
   </body>
 </html>

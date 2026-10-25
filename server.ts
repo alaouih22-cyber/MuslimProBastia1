@@ -508,7 +508,7 @@ function renderInlinedHtml() {
     const css = fs.readFileSync(path.resolve(__dirname, "public", "assets", "index-CypvtVfO.css"), "utf8");
     if (css) {
       html = html.replace(
-        /<link rel="stylesheet" href="\/assets\/index-CypvtVfO\.css[^"]*">/,
+        /<link rel="stylesheet" href="[^"]*index-CypvtVfO\.css[^"]*"[^>]*>/,
         () => `<style>${css}</style>`
       );
     }
@@ -517,7 +517,7 @@ function renderInlinedHtml() {
     const js = fs.readFileSync(path.resolve(__dirname, "public", "assets", "index-AXg4nBEh.js"), "utf8");
     if (js) {
       html = html.replace(
-        /<script src="\/assets\/index-AXg4nBEh\.js[^"]*"><\/script>/,
+        /<script>\s*\(function\(\)\s*\{\s*var s = document\.createElement\('script'\);[\s\S]*?<\/script>/,
         () => `<script>${js}</script>`
       );
     }
@@ -531,21 +531,23 @@ app.get(["/", "/index.html"], (_req, res) => {
   return res.send(renderInlinedHtml());
 });
 
-app.use("/assets", express.static(path.resolve(__dirname, "public", "assets"), {
-  setHeaders: (res, filePath) => {
-    if (filePath.endsWith(".js")) {
-      res.setHeader("Content-Type", "application/javascript; charset=utf-8");
-    } else if (filePath.endsWith(".css")) {
-      res.setHeader("Content-Type", "text/css; charset=utf-8");
-    }
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Cache-Control", "no-cache");
+const staticHeaders = (res, filePath) => {
+  if (filePath.endsWith(".js")) {
+    res.setHeader("Content-Type", "application/javascript; charset=utf-8");
+  } else if (filePath.endsWith(".css")) {
+    res.setHeader("Content-Type", "text/css; charset=utf-8");
   }
-}));
-app.use(express.static(path.resolve(__dirname,"public"), { index: false }));
-app.use(express.static(path.resolve(__dirname,"dist"), { index: false }));
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Cache-Control", "no-cache");
+};
 
-app.get(["/MuslimPro-Warsh.apk", "/MuslimPro-Warsh-v35.apk", "/MuslimPro-Warsh-v36.apk", "/api/download-apk"], (_req, res) => {
+app.use("/public/assets", express.static(path.resolve(__dirname, "public", "assets"), { setHeaders: staticHeaders }));
+app.use("/assets", express.static(path.resolve(__dirname, "public", "assets"), { setHeaders: staticHeaders }));
+app.use("/public", express.static(path.resolve(__dirname, "public"), { index: false, setHeaders: staticHeaders }));
+app.use(express.static(path.resolve(__dirname, "public"), { index: false }));
+app.use(express.static(path.resolve(__dirname, "dist"), { index: false }));
+
+app.get(["/MuslimPro-Warsh.apk", "/public/MuslimPro-Warsh.apk", "/MuslimPro-Warsh-v35.apk", "/MuslimPro-Warsh-v36.apk", "/api/download-apk"], (_req, res) => {
   const apkPath = path.resolve(__dirname, "public", "MuslimPro-Warsh.apk");
   res.setHeader("Content-Type", "application/vnd.android.package-archive");
   res.setHeader("Content-Disposition", 'attachment; filename="MuslimPro-Warsh.apk"');
@@ -553,7 +555,7 @@ app.get(["/MuslimPro-Warsh.apk", "/MuslimPro-Warsh-v35.apk", "/MuslimPro-Warsh-v
 });
 
 app.get("*",(req,res)=>{
-  if (req.path.startsWith("/assets/")) {
+  if (req.path.startsWith("/assets/") || req.path.startsWith("/public/assets/")) {
     return res.status(404).type("text/plain").send("Asset not found");
   }
   res.setHeader("Content-Type", "text/html; charset=utf-8");
