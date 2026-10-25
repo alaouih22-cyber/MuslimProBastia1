@@ -54,6 +54,26 @@
                              window.location.hostname.indexOf('netlify.app') !== -1 ||
                              window.location.hostname.indexOf('pages.dev') !== -1;
 
+          window.__getDownloadUrls = function(type) {
+            var isGH = window.location.hostname.indexOf('github.io') !== -1;
+            var base = isGH ? window.location.pathname.replace(/\/[^/]*$/, '') : '';
+            var live = LIVE_BACKEND;
+            if (type === 'apk') {
+              return {
+                page: (base ? base : '') + '/download.html?file=apk',
+                direct: (base ? base : '') + '/MuslimPro-Warsh.apk',
+                fallback: (base ? base : '') + '/public/MuslimPro-Warsh.apk',
+                live: live + '/MuslimPro-Warsh.apk'
+              };
+            }
+            return {
+              page: (base ? base : '') + '/download.html?file=ios',
+              direct: (base ? base : '') + '/MuslimPro-Warsh.mobileconfig',
+              fallback: (base ? base : '') + '/public/MuslimPro-Warsh.mobileconfig',
+              live: live + '/MuslimPro-Warsh.mobileconfig'
+            };
+          };
+
           var DEFAULT_POSTS = [
             {
               id: 'post_welcome_1',

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Download App - Muslim Pro Bastia (Warsh)</title>
+  <link rel="icon" type="image/svg+xml" href="./icon.svg">
+  <meta name="theme-color" content="#114237">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(145deg, #09261f 0%, #114237 50%, #061c16 100%);
+      color: #f8fafc;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 16px;
+    }
+    .container { width: 100%; max-width: 580px; margin: 0 auto; }
+    .header { text-align: center; margin-bottom: 24px; }
+    .logo {
+      width: 64px; height: 64px; border-radius: 18px;
+      background: rgba(16, 185, 129, 0.2);
+      border: 1px solid rgba(52, 211, 153, 0.4);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 32px; margin: 0 auto 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+    h1 { font-size: 22px; font-weight: 800; letter-spacing: -0.02em; color: #ffffff; margin-bottom: 6px; }
+    .subtitle { font-size: 13px; color: #a7f3d0; opacity: 0.95; }
+    .card {
+      background: rgba(15, 30, 25, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(52, 211, 153, 0.25);
+      border-radius: 20px;
+      padding: 20px; margin-bottom: 20px;
+      box-shadow: 0 12px 36px rgba(0,0,0,0.4);
+    }
+    .card-title {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 16px; font-weight: 700; color: #ffffff; margin-bottom: 12px;
+    }
+    .badge {
+      display: inline-block; font-size: 11px; font-weight: 600;
+      background: rgba(16, 185, 129, 0.25); color: #6ee7b7;
+      padding: 3px 8px; border-radius: 999px;
+      border: 1px solid rgba(52, 211, 153, 0.3); margin-bottom: 14px;
+    }
+    .btn {
+      display: flex; align-items: center; justify-content: center;
+      gap: 10px; width: 100%; padding: 14px 20px; border-radius: 14px;
+      font-size: 15px; font-weight: 700; text-decoration: none;
+      cursor: pointer; transition: all 0.2s ease;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+    }
+    .btn:active { transform: scale(0.98); }
+    .btn-emerald {
+      background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+      color: #ffffff; border: 1px solid #34d399;
+    }
+    .btn-blue {
+      background: linear-gradient(135deg, #0284c7 0%, #0ea5e9 100%);
+      color: #ffffff; border: 1px solid #38bdf8;
+    }
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.08); color: #e2e8f0;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      margin-top: 10px; font-size: 13px; padding: 10px 16px;
+    }
+    .mirror-links {
+      margin-top: 10px; font-size: 12px; text-align: center; color: #94a3b8;
+    }
+    .mirror-links a {
+      color: #34d399; text-decoration: underline; margin: 0 6px; font-weight: 600;
+    }
+    .steps {
+      margin-top: 16px; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 14px;
+    }
+    .step-item {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 12px; color: #cbd5e1; margin-bottom: 10px; line-height: 1.5;
+    }
+    .step-num {
+      width: 20px; height: 20px; border-radius: 50%;
+      background: rgba(16, 185, 129, 0.2); color: #34d399;
+      font-weight: 700; display: flex; align-items: center;
+      justify-content: center; flex-shrink: 0; font-size: 11px;
+    }
+    .toast {
+      position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+      background: rgba(16, 185, 129, 0.95); color: white;
+      padding: 10px 20px; border-radius: 999px; font-size: 13px;
+      font-weight: 600; box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+      display: none; z-index: 100;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="logo">🕌</div>
+      <h1>Muslim Pro - Bastia (Warsh)</h1>
+      <div class="subtitle">Download Ufficiale App per Android & Apple iOS</div>
+    </div>
+
+    <!-- ANDROID CARD -->
+    <div class="card" id="android-card">
+      <div class="card-title">
+        <span>🤖</span>
+        <span>App Android (Pacchetto APK)</span>
+      </div>
+      <div class="badge">Versione Ufficiale v30.0 • 15.1 MB • Bussola Qibla + Corano Warsh</div>
+      <a href="./MuslimPro-Warsh.apk" download="MuslimPro-Warsh.apk" class="btn btn-emerald" id="btn-download-apk">
+        <span>📦</span>
+        <span>SCARICA MUSLIMPRO-WARSH.APK</span>
+      </a>
+      <div class="mirror-links">
+        <span>Server alternativo:</span>
+        <a id="mirror-apk-public" href="./public/MuslimPro-Warsh.apk" download="MuslimPro-Warsh.apk">Mirror 1 (GitHub)</a> •
+        <a id="mirror-apk-live" href="https://ais-pre-mr4e2i4eum4xde3afw2k4u-552873705925.europe-west3.run.app/MuslimPro-Warsh.apk" download="MuslimPro-Warsh.apk">Mirror 2 (Cloud Run)</a>
+      </div>
+      <div class="steps">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div>Tocca il pulsante verde <strong>Scarica APK</strong> qui sopra.</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div>Se Chrome mostra l'avviso <em>"Il file potrebbe essere dannoso"</em>, tocca <strong>"Scarica comunque"</strong> (pacchetto ufficiale firmato autonomo).</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div>Al termine del download, apri la cartella <strong>Download</strong> o tocca la notifica e premi <strong>"Installa"</strong>.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IOS CARD -->
+    <div class="card" id="ios-card">
+      <div class="card-title">
+        <span>🍏</span>
+        <span>Apple iOS (iPhone & iPad)</span>
+      </div>
+      <div class="badge">Installazione Diretta Safari • Nessun App Store Richiesto</div>
+      
+      <div style="background: rgba(255,255,255,0.05); padding: 14px; border-radius: 14px; margin-bottom: 12px; border: 1px solid rgba(255,255,255,0.1);">
+        <div style="font-weight: 700; font-size: 14px; color: #38bdf8; margin-bottom: 8px;">📲 Metodo 1 (Consigliato per iPhone - PWA Nativa):</div>
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div>Apri l'app nel browser <strong>Safari</strong> su iPhone.</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div>Tocca l'icona <strong>Condividi ⎋</strong> (in basso al centro della barra di Safari).</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div>Scorri e tocca <strong>"Aggiungi alla schermata Home" 📲</strong></div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">4</div>
+          <div>Tocca <strong>"Aggiungi"</strong> in alto a destra: l'app si installerà a schermo intero con icona ufficiale!</div>
+        </div>
+      </div>
+
+      <div style="font-weight: 700; font-size: 13px; color: #a7f3d0; margin: 12px 0 6px;">Oppure scarica il Profilo di Configurazione iOS:</div>
+      <a href="./MuslimPro-Warsh.mobileconfig" download="MuslimPro-Warsh-iOS.mobileconfig" class="btn btn-blue" id="btn-download-ios">
+        <span>🍏</span>
+        <span>SCARICA PROFILO IOS (.mobileconfig)</span>
+      </a>
+      <div class="mirror-links">
+        <span>Server alternativo:</span>
+        <a id="mirror-ios-public" href="./public/MuslimPro-Warsh.mobileconfig" download="MuslimPro-Warsh-iOS.mobileconfig">Mirror 1 (GitHub)</a> •
+        <a id="mirror-ios-live" href="https://ais-pre-mr4e2i4eum4xde3afw2k4u-552873705925.europe-west3.run.app/MuslimPro-Warsh.mobileconfig" download="MuslimPro-Warsh-iOS.mobileconfig">Mirror 2 (Cloud Run)</a>
+      </div>
+      <div class="steps">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div>Tocca il pulsante blu per scaricare il profilo e premi <strong>"Consenti"</strong>.</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div>Apri l'app <strong>Impostazioni</strong> sul tuo iPhone e tocca in alto <strong>"Profilo scaricato"</strong>.</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div>Tocca <strong>"Installa"</strong> in alto a destra e conferma con il codice del tuo iPhone.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WEB APP LINK -->
+    <a href="./" class="btn btn-secondary" id="btn-open-webapp">
+      <span>🕌</span>
+      <span>Apri l'App Web nel Browser</span>
+    </a>
+  </div>
+
+  <div class="toast" id="toast">Download avviato...</div>
+
+  <script>
+    (function() {
+      // Dynamic base path adjustment for GitHub Pages / static hosting
+      var isGitHubPages = window.location.hostname.indexOf('github.io') !== -1;
+      var repoBase = isGitHubPages ? window.location.pathname.replace(/\/download(\.html)?$/, '').replace(/\/$/, '') : '';
+      var LIVE_URL = 'https://ais-pre-mr4e2i4eum4xde3afw2k4u-552873705925.europe-west3.run.app';
+
+      var apkBtn = document.getElementById('btn-download-apk');
+      var iosBtn = document.getElementById('btn-download-ios');
+      var webappBtn = document.getElementById('btn-open-webapp');
+      var mirrorApkPub = document.getElementById('mirror-apk-public');
+      var mirrorIosPub = document.getElementById('mirror-ios-public');
+
+      var apkUrl = (repoBase ? repoBase : '') + '/MuslimPro-Warsh.apk';
+      var apkPublicUrl = (repoBase ? repoBase : '') + '/public/MuslimPro-Warsh.apk';
+      var iosUrl = (repoBase ? repoBase : '') + '/MuslimPro-Warsh.mobileconfig';
+      var iosPublicUrl = (repoBase ? repoBase : '') + '/public/MuslimPro-Warsh.mobileconfig';
+
+      if (apkBtn) apkBtn.href = apkUrl;
+      if (iosBtn) iosBtn.href = iosUrl;
+      if (webappBtn) webappBtn.href = (repoBase ? (repoBase + '/') : './');
+      if (mirrorApkPub) mirrorApkPub.href = apkPublicUrl;
+      if (mirrorIosPub) mirrorIosPub.href = iosPublicUrl;
+
+      var params = new URLSearchParams(window.location.search);
+      var file = (params.get('file') || params.get('type') || '').toLowerCase();
+      var toast = document.getElementById('toast');
+
+      function showToast(msg) {
+        if (!toast) return;
+        toast.textContent = msg;
+        toast.style.display = 'block';
+        setTimeout(function() { toast.style.display = 'none'; }, 4500);
+      }
+
+      function triggerDownload(url, filename) {
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      }
+
+      if (file === 'apk') {
+        showToast('Avvio download MuslimPro-Warsh.apk...');
+        setTimeout(function() {
+          triggerDownload(apkUrl, 'MuslimPro-Warsh.apk');
+        }, 500);
+      } else if (file === 'ios') {
+        showToast('Avvio download Profilo iOS...');
+        setTimeout(function() {
+          triggerDownload(iosUrl, 'MuslimPro-Warsh-iOS.mobileconfig');
+        }, 500);
+      }
+    })();
+  </script>
+</body>
+</html>
