@@ -663,8 +663,8 @@ function renderDownloadPage(fileTarget = "") {
         <span>🤖</span>
         <span>App Android (Pacchetto APK)</span>
       </div>
-      <div class="badge">Versione Ufficiale v30.0 • 15.1 MB • Bussola Qibla + Corano Warsh</div>
-      <a href="/MuslimPro-Warsh.apk" download="MuslimPro-Warsh.apk" class="btn btn-emerald" id="btn-download-apk">
+      <div class="badge">Versione Ufficiale v38.0 • Firmato v1+v2 • Corano Warsh + Qibla</div>
+      <a href="/MuslimPro-Warsh.apk?v=38" download="MuslimPro-Warsh.apk" class="btn btn-emerald" id="btn-download-apk">
         <span>📦</span>
         <span>SCARICA MUSLIMPRO-WARSH.APK</span>
       </a>
@@ -675,7 +675,7 @@ function renderDownloadPage(fileTarget = "") {
         </div>
         <div class="step-item">
           <div class="step-num">2</div>
-          <div>Se Chrome mostra l'avviso <em>"Il file potrebbe essere dannoso"</em>, tocca <strong>"Scarica comunque"</strong> (pacchetto ufficiale autonomo).</div>
+          <div>Se avevi installato una vecchia versione di test con firma diversa, disinstalla prima la vecchia versione e poi installa questo pacchetto ufficiale v38.</div>
         </div>
         <div class="step-item">
           <div class="step-num">3</div>

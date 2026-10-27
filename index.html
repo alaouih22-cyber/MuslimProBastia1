@@ -76,16 +76,16 @@
             if (type === 'apk') {
               return {
                 page: (base ? base : '') + '/download.html?file=apk',
-                direct: (base ? base : '') + '/MuslimPro-Warsh.apk',
-                fallback: (base ? base : '') + '/public/MuslimPro-Warsh.apk',
-                live: live + '/MuslimPro-Warsh.apk'
+                direct: isGH ? (live + '/MuslimPro-Warsh.apk?v=38') : ((base ? base : '') + '/MuslimPro-Warsh.apk?v=38'),
+                fallback: (base ? base : '') + '/MuslimPro-Warsh.apk?v=38',
+                live: live + '/MuslimPro-Warsh.apk?v=38'
               };
             }
             return {
               page: (base ? base : '') + '/download.html?file=ios',
-              direct: (base ? base : '') + '/MuslimPro-Warsh.mobileconfig',
-              fallback: (base ? base : '') + '/public/MuslimPro-Warsh.mobileconfig',
-              live: live + '/MuslimPro-Warsh.mobileconfig'
+              direct: isGH ? (live + '/MuslimPro-Warsh.mobileconfig?v=38') : ((base ? base : '') + '/MuslimPro-Warsh.mobileconfig?v=38'),
+              fallback: (base ? base : '') + '/MuslimPro-Warsh.mobileconfig?v=38',
+              live: live + '/MuslimPro-Warsh.mobileconfig?v=38'
             };
           };
 

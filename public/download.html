@@ -122,15 +122,15 @@
           <span>🤖</span>
           <span>App Android (Pacchetto APK)</span>
         </div>
-        <div class="badge">Versione Ufficiale v30.0 • 15.1 MB • Bussola Qibla + Corano Warsh</div>
-        <a href="./MuslimPro-Warsh.apk" download="MuslimPro-Warsh.apk" class="btn btn-emerald" id="btn-download-apk">
+        <div class="badge">Versione Ufficiale v38.0 • Firmato v1+v2 • Corano Warsh + Qibla</div>
+        <a href="./MuslimPro-Warsh.apk?v=38" download="MuslimPro-Warsh.apk" class="btn btn-emerald" id="btn-download-apk">
           <span>📦</span>
           <span>SCARICA MUSLIMPRO-WARSH.APK</span>
         </a>
         <div class="mirror-links">
           <span>Server alternativo:</span>
-          <a id="mirror-apk-public" href="./public/MuslimPro-Warsh.apk" download="MuslimPro-Warsh.apk">Mirror 1 (GitHub)</a> •
-          <a id="mirror-apk-live" href="https://ais-pre-mr4e2i4eum4xde3afw2k4u-552873705925.europe-west3.run.app/MuslimPro-Warsh.apk" download="MuslimPro-Warsh.apk">Mirror 2 (Cloud Run)</a>
+          <a id="mirror-apk-live" href="https://ais-pre-mr4e2i4eum4xde3afw2k4u-552873705925.europe-west3.run.app/MuslimPro-Warsh.apk?v=38" download="MuslimPro-Warsh.apk">Mirror 1 (Cloud Run Diretto)</a> •
+          <a id="mirror-apk-public" href="./MuslimPro-Warsh.apk?v=38" download="MuslimPro-Warsh.apk">Mirror 2 (Locale)</a>
         </div>
         <div class="steps">
           <div class="step-item">
@@ -139,7 +139,7 @@
           </div>
           <div class="step-item">
             <div class="step-num">2</div>
-            <div>Se Chrome mostra l'avviso <em>"Il file potrebbe essere dannoso"</em>, tocca <strong>"Scarica comunque"</strong> (pacchetto ufficiale firmato autonomo).</div>
+            <div>Se avevi installato una vecchia versione di test con firma diversa, disinstalla prima la vecchia versione e poi installa questo pacchetto ufficiale v38.</div>
           </div>
           <div class="step-item">
             <div class="step-num">3</div>
@@ -177,14 +177,14 @@
         </div>
 
         <div style="font-weight: 700; font-size: 13px; color: #a7f3d0; margin: 12px 0 6px;">Oppure scarica il Profilo di Configurazione iOS:</div>
-        <a href="./MuslimPro-Warsh.mobileconfig" download="MuslimPro-Warsh-iOS.mobileconfig" class="btn btn-blue" id="btn-download-ios">
+        <a href="./MuslimPro-Warsh.mobileconfig?v=38" download="MuslimPro-Warsh-iOS.mobileconfig" class="btn btn-blue" id="btn-download-ios">
           <span>🍏</span>
           <span>SCARICA PROFILO IOS (.mobileconfig)</span>
         </a>
         <div class="mirror-links">
           <span>Server alternativo:</span>
-          <a id="mirror-ios-public" href="./public/MuslimPro-Warsh.mobileconfig" download="MuslimPro-Warsh-iOS.mobileconfig">Mirror 1 (GitHub)</a> •
-          <a id="mirror-ios-live" href="https://ais-pre-mr4e2i4eum4xde3afw2k4u-552873705925.europe-west3.run.app/MuslimPro-Warsh.mobileconfig" download="MuslimPro-Warsh-iOS.mobileconfig">Mirror 2 (Cloud Run)</a>
+          <a id="mirror-ios-live" href="https://ais-pre-mr4e2i4eum4xde3afw2k4u-552873705925.europe-west3.run.app/MuslimPro-Warsh.mobileconfig?v=38" download="MuslimPro-Warsh-iOS.mobileconfig">Mirror 1 (Cloud Run)</a> •
+          <a id="mirror-ios-public" href="./MuslimPro-Warsh.mobileconfig?v=38" download="MuslimPro-Warsh-iOS.mobileconfig">Mirror 2 (Locale)</a>
         </div>
         <div class="steps">
           <div class="step-item">
@@ -214,7 +214,6 @@
 
   <script>
     (function() {
-      // Dynamic base path adjustment for GitHub Pages / static hosting
       var isGitHubPages = window.location.hostname.indexOf('github.io') !== -1;
       var repoBase = isGitHubPages ? window.location.pathname.replace(/\/download(\.html)?$/, '').replace(/\/$/, '') : '';
       var LIVE_URL = 'https://ais-pre-mr4e2i4eum4xde3afw2k4u-552873705925.europe-west3.run.app';
@@ -225,10 +224,10 @@
       var mirrorApkPub = document.getElementById('mirror-apk-public');
       var mirrorIosPub = document.getElementById('mirror-ios-public');
 
-      var apkUrl = (repoBase ? repoBase : '') + '/MuslimPro-Warsh.apk';
-      var apkPublicUrl = (repoBase ? repoBase : '') + '/public/MuslimPro-Warsh.apk';
-      var iosUrl = (repoBase ? repoBase : '') + '/MuslimPro-Warsh.mobileconfig';
-      var iosPublicUrl = (repoBase ? repoBase : '') + '/public/MuslimPro-Warsh.mobileconfig';
+      var apkUrl = isGitHubPages ? (LIVE_URL + '/MuslimPro-Warsh.apk?v=38') : ((repoBase ? repoBase : '') + '/MuslimPro-Warsh.apk?v=38');
+      var apkPublicUrl = (repoBase ? repoBase : '') + '/MuslimPro-Warsh.apk?v=38';
+      var iosUrl = isGitHubPages ? (LIVE_URL + '/MuslimPro-Warsh.mobileconfig?v=38') : ((repoBase ? repoBase : '') + '/MuslimPro-Warsh.mobileconfig?v=38');
+      var iosPublicUrl = (repoBase ? repoBase : '') + '/MuslimPro-Warsh.mobileconfig?v=38';
 
       if (apkBtn) apkBtn.href = apkUrl;
       if (iosBtn) iosBtn.href = iosUrl;
