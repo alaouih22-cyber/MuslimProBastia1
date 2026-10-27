@@ -3,7 +3,7 @@ var __defProp=Object.defineProperty;var __name=(target,value)=>__defProp(target,
 const BASTIA_OFFICIAL_TIMETABLE_2026=[{day:12,month:10,fajr:"06:03",shuruk:"07:19",dhuhr:"12:59",asr:"16:03",maghrib:"18:36",ishaa:"19:53"},{day:13,month:10,fajr:"06:04",shuruk:"07:20",dhuhr:"12:58",asr:"16:02",maghrib:"18:34",ishaa:"19:51"},{day:14,month:10,fajr:"06:05",shuruk:"07:21",dhuhr:"12:58",asr:"16:01",maghrib:"18:33",ishaa:"19:49"},{day:15,month:10,fajr:"06:06",shuruk:"07:22",dhuhr:"12:58",asr:"16:00",maghrib:"18:31",ishaa:"19:48"},{day:16,month:10,fajr:"06:07",shuruk:"07:23",dhuhr:"12:58",asr:"15:58",maghrib:"18:29",ishaa:"19:46"},{day:17,month:10,fajr:"06:08",shuruk:"07:25",dhuhr:"12:58",asr:"15:57",maghrib:"18:28",ishaa:"19:45"},{day:18,month:10,fajr:"06:10",shuruk:"07:26",dhuhr:"12:57",asr:"15:56",maghrib:"18:26",ishaa:"19:43"},{day:19,month:10,fajr:"06:11",shuruk:"07:27",dhuhr:"12:57",asr:"15:55",maghrib:"18:25",ishaa:"19:42"},{day:20,month:10,fajr:"06:12",shuruk:"07:28",dhuhr:"12:57",asr:"15:53",maghrib:"18:23",ishaa:"19:40"},{day:21,month:10,fajr:"06:13",shuruk:"07:29",dhuhr:"12:57",asr:"15:52",maghrib:"18:21",ishaa:"19:39"},{day:22,month:10,fajr:"06:14",shuruk:"07:31",dhuhr:"12:57",asr:"15:51",maghrib:"18:20",ishaa:"19:37"},{day:23,month:10,fajr:"06:15",shuruk:"07:32",dhuhr:"12:56",asr:"15:50",maghrib:"18:18",ishaa:"19:36"},{day:24,month:10,fajr:"06:16",shuruk:"07:33",dhuhr:"12:56",asr:"15:48",maghrib:"18:17",ishaa:"19:34"},{day:25,month:10,fajr:"05:19",shuruk:"06:36",dhuhr:"11:56",asr:"14:46",maghrib:"17:14",ishaa:"18:31"},{day:26,month:10,fajr:"05:20",shuruk:"06:37",dhuhr:"11:56",asr:"14:45",maghrib:"17:12",ishaa:"18:30"},{day:27,month:10,fajr:"05:21",shuruk:"06:38",dhuhr:"11:56",asr:"14:44",maghrib:"17:11",ishaa:"18:29"},{day:28,month:10,fajr:"05:22",shuruk:"06:39",dhuhr:"11:56",asr:"14:43",maghrib:"17:09",ishaa:"18:27"},{day:29,month:10,fajr:"05:23",shuruk:"06:41",dhuhr:"11:56",asr:"14:41",maghrib:"17:08",ishaa:"18:26"},{day:30,month:10,fajr:"05:24",shuruk:"06:42",dhuhr:"11:56",asr:"14:40",maghrib:"17:07",ishaa:"18:25"},{day:31,month:10,fajr:"05:26",shuruk:"06:43",dhuhr:"11:56",asr:"14:39",maghrib:"17:05",ishaa:"18:24"},{day:1,month:11,fajr:"05:27",shuruk:"06:45",dhuhr:"11:56",asr:"14:38",maghrib:"17:04",ishaa:"18:22"},{day:2,month:11,fajr:"05:28",shuruk:"06:46",dhuhr:"11:56",asr:"14:37",maghrib:"17:03",ishaa:"18:21"},{day:3,month:11,fajr:"05:29",shuruk:"06:47",dhuhr:"11:56",asr:"14:36",maghrib:"17:01",ishaa:"18:20"},{day:4,month:11,fajr:"05:30",shuruk:"06:48",dhuhr:"11:56",asr:"14:35",maghrib:"17:00",ishaa:"18:19"},{day:5,month:11,fajr:"05:31",shuruk:"06:50",dhuhr:"11:56",asr:"14:34",maghrib:"16:59",ishaa:"18:18"},{day:6,month:11,fajr:"05:32",shuruk:"06:51",dhuhr:"11:56",asr:"14:33",maghrib:"16:58",ishaa:"18:17"},{day:7,month:11,fajr:"05:33",shuruk:"06:52",dhuhr:"11:56",asr:"14:32",maghrib:"16:57",ishaa:"18:16"},{day:8,month:11,fajr:"05:35",shuruk:"06:53",dhuhr:"11:56",asr:"14:31",maghrib:"16:55",ishaa:"18:15"},{day:9,month:11,fajr:"05:36",shuruk:"06:55",dhuhr:"11:56",asr:"14:30",maghrib:"16:54",ishaa:"18:14"},{day:10,month:11,fajr:"05:37",shuruk:"06:56",dhuhr:"11:56",asr:"14:30",maghrib:"16:53",ishaa:"18:13"}];
 const DEFAULT_LOCATIONS=[{id:"bastia-umbra",name:"Bastia Umbra",region:"Umbria (Perugia)",country:"Italia",latitude:43.0683,longitude:12.5511,timezone:"Europe/Rome"},{id:"perugia",name:"Perugia",region:"Umbria",country:"Italia",latitude:43.1107,longitude:12.3908,timezone:"Europe/Rome"},{id:"assisi",name:"Assisi",region:"Umbria (Perugia)",country:"Italia",latitude:43.0707,longitude:12.6196,timezone:"Europe/Rome"},{id:"bastia-corsica",name:"Bastia (Corsica)",region:"Haute-Corse",country:"Francia",latitude:42.6973,longitude:9.4509,timezone:"Europe/Paris"},{id:"roma",name:"Roma",region:"Lazio",country:"Italia",latitude:41.9028,longitude:12.4964,timezone:"Europe/Rome"},{id:"milano",name:"Milano",region:"Lombardia",country:"Italia",latitude:45.4642,longitude:9.19,timezone:"Europe/Rome"},{id:"casablanca",name:"Casablanca",region:"Grand Casablanca",country:"Marocco",latitude:33.5731,longitude:-7.5898,timezone:"Africa/Casablanca"},{id:"makkah",name:"Makkah Al-Mukarramah",region:"Mecca",country:"Arabia Saudita",latitude:21.4225,longitude:39.8262,timezone:"Asia/Riyadh"}];
 function getPrayerTimesForDate(date,location){const d=date.getDate(),m=date.getMonth()+1;const official=BASTIA_OFFICIAL_TIMETABLE_2026.find(item=>item.day===d&&item.month===m)||BASTIA_OFFICIAL_TIMETABLE_2026[13];return[{id:"Fajr",nameIt:"Fajr (Alba)",nameAr:"\u0627\u0644\u0641\u062C\u0631",time:official.fajr},{id:"Sunrise",nameIt:"Shuruq (Sorgente)",nameAr:"\u0627\u0644\u0634\u0631\u0648\u0642",time:official.shuruk},{id:"Dhuhr",nameIt:"Dhuhr (Mezzogiorno)",nameAr:"\u0627\u0644\u0638\u0647\u0631",time:official.dhuhr},{id:"Asr",nameIt:"Asr (Pomeriggio)",nameAr:"\u0627\u0644\u0639\u0635\u0631",time:official.asr},{id:"Maghrib",nameIt:"Maghrib (Tramonto)",nameAr:"\u0627\u0644\u0645\u063A\u0631\u0628",time:official.maghrib},{id:"Isha",nameIt:"Isha (Notte)",nameAr:"\u0627\u0644\u0639\u0634\u0627\u0621",time:official.ishaa}]}
-const __filename=fileURLToPath(import.meta.url);const __dirname=path.dirname(__filename);const isProduction=process.env.NODE_ENV==="production";const port=Number(process.env.PORT)||3e3;const PERMANENT_VAPID_KEYS={publicKey:"BBmeblTaHn-6a7SKl-k2G0i9tv6GhJpJupzWOy71oWtUvqGCXBkuNGObPDb7eSiHPTEd08QGmckOMVKdetxKTH8",privateKey:"-3VMCdozPYRjjg5PPl3koxn0Jh4EKv68Zr2u72mAKgU"};const VAPID_FILE=path.resolve(__dirname,".vapid-keys.json");let vapidKeys=PERMANENT_VAPID_KEYS;try{fs.writeFileSync(VAPID_FILE,JSON.stringify(PERMANENT_VAPID_KEYS,null,2))}catch{}webpush.setVapidDetails("mailto:info@muslimpro-bastia.app",vapidKeys.publicKey,vapidKeys.privateKey);const FIREBASE_REGISTRY_DOC_ID="registry_index_v1";let firestoreDb=null;try{const fbConfigPath=path.resolve(__dirname,"firebase-applet-config.json");if(fs.existsSync(fbConfigPath)){const fbConfig=JSON.parse(fs.readFileSync(fbConfigPath,"utf8"));const fbApp=initializeApp(fbConfig,"server-push-scheduler");firestoreDb=getFirestore(fbApp,fbConfig.firestoreDatabaseId)}}catch(err){console.warn("Server Firebase initialization warning:",err)}const PUSH_SUBS_FILE=path.resolve(__dirname,".push-subscriptions.json");const pushSubscriptions=new Map;const watchedFirestoreDevices=new Set;function loadPushSubscriptions(){try{if(fs.existsSync(PUSH_SUBS_FILE)){const raw=JSON.parse(fs.readFileSync(PUSH_SUBS_FILE,"utf8"));if(Array.isArray(raw)){for(const item of raw){if(item&&item.subscription&&item.subscription.endpoint){if(item.deviceId){for(const[ep,s]of pushSubscriptions.entries()){if(s.deviceId===item.deviceId){pushSubscriptions.delete(ep);}}}pushSubscriptions.set(item.subscription.endpoint,{deviceId:item.deviceId,subscription:item.subscription,locationName:item.locationName||"Bastia Umbra",timezone:item.timezone||"Europe/Rome",athanVoice:item.athanVoice||"/audio/makkah.mp3",prayers:Array.isArray(item.prayers)?item.prayers:[],firedKeys:new Set(Array.isArray(item.firedKeys)?item.firedKeys:[])});}}}}}catch{}}__name(loadPushSubscriptions,"loadPushSubscriptions");function savePushSubscriptions(){try{const arr=Array.from(pushSubscriptions.values()).map(sub=>({deviceId:sub.deviceId,subscription:sub.subscription,locationName:sub.locationName,timezone:sub.timezone,athanVoice:sub.athanVoice,prayers:sub.prayers,firedKeys:Array.from(sub.firedKeys).slice(-40)}));fs.writeFileSync(PUSH_SUBS_FILE,JSON.stringify(arr,null,2))}catch{}}__name(savePushSubscriptions,"savePushSubscriptions");function ingestFirestoreDeviceDoc(data){if(!data||!data.deviceId||data.deviceId===FIREBASE_REGISTRY_DOC_ID)return;if(!data.fcmToken||typeof data.fcmToken!=="string")return;try{const parsedSub=JSON.parse(data.fcmToken);if(!parsedSub||!parsedSub.endpoint||!parsedSub.keys)return;const existing=pushSubscriptions.get(parsedSub.endpoint);const prayers=[{id:"Fajr",nameIt:"Fajr",nameAr:"\u0627\u0644\u0641\u062C\u0631",time:data.fajrTime||"05:20",alertMode:"sound"},{id:"Dhuhr",nameIt:"Dhuhr",nameAr:"\u0627\u0644\u0638\u0647\u0631",time:data.dhuhrTime||"13:10",alertMode:"sound"},{id:"Asr",nameIt:"Asr",nameAr:"\u0627\u0644\u0639\u0635\u0631",time:data.asrTime||"16:40",alertMode:"sound"},{id:"Maghrib",nameIt:"Maghrib",nameAr:"\u0627\u0644\u0645\u063A\u0631\u0628",time:data.maghribTime||"19:55",alertMode:"sound"},{id:"Isha",nameIt:"Isha",nameAr:"\u0627\u0644\u0639\u0634\u0627\u0621",time:data.ishaTime||"21:20",alertMode:"sound"}];if(data.deviceId){for(const[ep,s]of pushSubscriptions.entries()){if(s.deviceId===data.deviceId&&ep!==parsedSub.endpoint){pushSubscriptions.delete(ep);}}}pushSubscriptions.set(parsedSub.endpoint,{deviceId:data.deviceId,subscription:parsedSub,locationName:data.locationName||existing?.locationName||"Bastia Umbra",timezone:data.timezone||existing?.timezone||"Europe/Rome",athanVoice:data.athanVoice||existing?.athanVoice||"/audio/makkah.mp3",prayers,firedKeys:existing?.firedKeys||new Set});savePushSubscriptions()}catch{}}__name(ingestFirestoreDeviceDoc,"ingestFirestoreDeviceDoc");function watchFirestoreDevice(deviceId){if(!firestoreDb||!deviceId||deviceId===FIREBASE_REGISTRY_DOC_ID)return;if(watchedFirestoreDevices.has(deviceId))return;watchedFirestoreDevices.add(deviceId);try{getDoc(doc(firestoreDb,"prayerDevices",deviceId)).then(snap=>{if(snap&&snap.exists()){ingestFirestoreDeviceDoc(snap.data())}}).catch(()=>{})}catch{}}__name(watchFirestoreDevice,"watchFirestoreDevice");function startServerFirestoreSync(){if(!firestoreDb)return;try{getDoc(doc(firestoreDb,"prayerDevices",FIREBASE_REGISTRY_DOC_ID)).then(snap=>{if(!snap||!snap.exists())return;const rawList=snap.data()?.fcmToken;if(!rawList)return;try{const ids=JSON.parse(rawList);if(Array.isArray(ids)){for(const id of ids){if(typeof id==="string"){watchFirestoreDevice(id)}}}}catch{}}).catch(()=>{})}catch{}}__name(startServerFirestoreSync,"startServerFirestoreSync");async function persistSubscriptionToFirestore(deviceId,sub,locationName,timezone,athanVoice,prayers){if(!firestoreDb)return;const safeId=(deviceId||"dev_"+Date.now().toString(36)).replace(/[^a-zA-Z0-9_-]/g,"_").slice(0,120);const findTime=__name((id,fb)=>{const found=prayers.find(p=>p.id.toLowerCase()===id.toLowerCase());return String(found?.time||fb).slice(0,10)},"findTime");const payload={deviceId:safeId,locationName:(locationName||"Bastia Umbra").slice(0,120),timezone:(timezone||"Europe/Rome").slice(0,80),athanVoice:(athanVoice||"/audio/makkah.mp3").slice(0,200),fajrTime:findTime("Fajr","05:20"),dhuhrTime:findTime("Dhuhr","13:10"),asrTime:findTime("Asr","16:40"),maghribTime:findTime("Maghrib","19:55"),ishaTime:findTime("Isha","21:20"),fcmToken:JSON.stringify({endpoint:sub.endpoint,keys:sub.keys||{}}).slice(0,1024)};try{await setDoc(doc(firestoreDb,"prayerDevices",safeId),payload);watchFirestoreDevice(safeId);const regRef=doc(firestoreDb,"prayerDevices",FIREBASE_REGISTRY_DOC_ID);const snap=await getDoc(regRef).catch(()=>null);let list=[];if(snap&&snap.exists()&&snap.data()?.fcmToken){try{const parsed=JSON.parse(snap.data().fcmToken);if(Array.isArray(parsed))list=parsed.filter(x=>typeof x==="string")}catch{}}if(!list.includes(safeId)){list.push(safeId);if(list.length>25)list=list.slice(-25);await setDoc(regRef,{...payload,deviceId:FIREBASE_REGISTRY_DOC_ID,fcmToken:JSON.stringify(list).slice(0,1024)})}}catch(err){console.warn("Firestore server sync warning:",err)}}__name(persistSubscriptionToFirestore,"persistSubscriptionToFirestore");loadPushSubscriptions();startServerFirestoreSync();async function bootstrap(){const app=express();app.use((req, res, next) => { res.setHeader("Access-Control-Allow-Origin", "*"); res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE"); res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization"); if (req.method === "OPTIONS") return res.sendStatus(204); next(); });app.use(express.json());const geminiApiKey=process.env.GEMINI_API_KEY||"";const ai=new GoogleGenAI({apiKey:geminiApiKey,httpOptions:{headers:{"User-Agent":"aistudio-build"}}});const ISLAMIC_SYSTEM_INSTRUCTION = `Sei l'assistente vocale e testuale islamico ufficiale (con voce maschile) di "Muslim Pro - Bastia (Warsh)".
+const __filename=fileURLToPath(import.meta.url);const __dirname=path.dirname(__filename);const isProduction=process.env.NODE_ENV==="production";const port=Number(process.env.PORT)||3e3;const PERMANENT_VAPID_KEYS={publicKey:"BBmeblTaHn-6a7SKl-k2G0i9tv6GhJpJupzWOy71oWtUvqGCXBkuNGObPDb7eSiHPTEd08QGmckOMVKdetxKTH8",privateKey:"-3VMCdozPYRjjg5PPl3koxn0Jh4EKv68Zr2u72mAKgU"};const VAPID_FILE=path.resolve(__dirname,".vapid-keys.json");let vapidKeys=PERMANENT_VAPID_KEYS;try{fs.writeFileSync(VAPID_FILE,JSON.stringify(PERMANENT_VAPID_KEYS,null,2))}catch{}webpush.setVapidDetails("mailto:info@muslimpro-bastia.app",vapidKeys.publicKey,vapidKeys.privateKey);const FIREBASE_REGISTRY_DOC_ID="registry_index_v1";let firestoreDb=null;try{const fbConfigPath=path.resolve(__dirname,"firebase-applet-config.json");if(fs.existsSync(fbConfigPath)){const fbConfig=JSON.parse(fs.readFileSync(fbConfigPath,"utf8"));const fbApp=initializeApp(fbConfig,"server-push-scheduler");firestoreDb=getFirestore(fbApp,fbConfig.firestoreDatabaseId)}}catch(err){console.warn("Server Firebase initialization warning:",err)}const PUSH_SUBS_FILE=path.resolve(__dirname,".push-subscriptions.json");const pushSubscriptions=new Map;const watchedFirestoreDevices=new Set;function loadPushSubscriptions(){try{if(fs.existsSync(PUSH_SUBS_FILE)){const raw=JSON.parse(fs.readFileSync(PUSH_SUBS_FILE,"utf8"));if(Array.isArray(raw)){for(const item of raw){if(item&&item.subscription&&item.subscription.endpoint){if(item.deviceId){for(const[ep,s]of pushSubscriptions.entries()){if(s.deviceId===item.deviceId){pushSubscriptions.delete(ep);}}}pushSubscriptions.set(item.subscription.endpoint,{deviceId:item.deviceId,subscription:item.subscription,locationName:item.locationName||"Bastia Umbra",timezone:item.timezone||"Europe/Rome",athanVoice:item.athanVoice||"/audio/makkah.mp3",prayers:Array.isArray(item.prayers)?item.prayers:[],firedKeys:new Set(Array.isArray(item.firedKeys)?item.firedKeys:[])});}}}}}catch{}}__name(loadPushSubscriptions,"loadPushSubscriptions");function savePushSubscriptions(){try{const arr=Array.from(pushSubscriptions.values()).map(sub=>({deviceId:sub.deviceId,subscription:sub.subscription,locationName:sub.locationName,timezone:sub.timezone,athanVoice:sub.athanVoice,prayers:sub.prayers,firedKeys:Array.from(sub.firedKeys).slice(-40)}));fs.writeFileSync(PUSH_SUBS_FILE,JSON.stringify(arr,null,2))}catch{}}__name(savePushSubscriptions,"savePushSubscriptions");function ingestFirestoreDeviceDoc(data){if(!data||!data.deviceId||data.deviceId===FIREBASE_REGISTRY_DOC_ID)return;if(!data.fcmToken||typeof data.fcmToken!=="string")return;try{const parsedSub=JSON.parse(data.fcmToken);if(!parsedSub||!parsedSub.endpoint||!parsedSub.keys)return;const existing=pushSubscriptions.get(parsedSub.endpoint);const prayers=[{id:"Fajr",nameIt:"Fajr",nameAr:"\u0627\u0644\u0641\u062C\u0631",time:data.fajrTime||"05:20",alertMode:"sound"},{id:"Dhuhr",nameIt:"Dhuhr",nameAr:"\u0627\u0644\u0638\u0647\u0631",time:data.dhuhrTime||"13:10",alertMode:"sound"},{id:"Asr",nameIt:"Asr",nameAr:"\u0627\u0644\u0639\u0635\u0631",time:data.asrTime||"16:40",alertMode:"sound"},{id:"Maghrib",nameIt:"Maghrib",nameAr:"\u0627\u0644\u0645\u063A\u0631\u0628",time:data.maghribTime||"19:55",alertMode:"sound"},{id:"Isha",nameIt:"Isha",nameAr:"\u0627\u0644\u0639\u0634\u0627\u0621",time:data.ishaTime||"21:20",alertMode:"sound"}];if(data.deviceId){for(const[ep,s]of pushSubscriptions.entries()){if(s.deviceId===data.deviceId&&ep!==parsedSub.endpoint){pushSubscriptions.delete(ep);}}}pushSubscriptions.set(parsedSub.endpoint,{deviceId:data.deviceId,subscription:parsedSub,locationName:data.locationName||existing?.locationName||"Bastia Umbra",timezone:data.timezone||existing?.timezone||"Europe/Rome",athanVoice:data.athanVoice||existing?.athanVoice||"/audio/makkah.mp3",prayers,firedKeys:existing?.firedKeys||new Set});savePushSubscriptions()}catch{}}__name(ingestFirestoreDeviceDoc,"ingestFirestoreDeviceDoc");function watchFirestoreDevice(deviceId){if(!firestoreDb||!deviceId||deviceId===FIREBASE_REGISTRY_DOC_ID)return;if(watchedFirestoreDevices.has(deviceId))return;watchedFirestoreDevices.add(deviceId);try{getDoc(doc(firestoreDb,"prayerDevices",deviceId)).then(snap=>{if(snap&&snap.exists()){ingestFirestoreDeviceDoc(snap.data())}}).catch(()=>{})}catch{}}__name(watchFirestoreDevice,"watchFirestoreDevice");function startServerFirestoreSync(){if(!firestoreDb)return;try{getDocs(collection(firestoreDb,"prayerDevices")).then(snap=>{if(!snap||snap.empty)return;snap.forEach(d=>{if(d.id&&d.id!==FIREBASE_REGISTRY_DOC_ID){ingestFirestoreDeviceDoc({deviceId:d.id,...d.data()})}})}).catch(()=>{});getDoc(doc(firestoreDb,"prayerDevices",FIREBASE_REGISTRY_DOC_ID)).then(snap=>{if(!snap||!snap.exists())return;const rawList=snap.data()?.fcmToken;if(!rawList)return;try{const ids=JSON.parse(rawList);if(Array.isArray(ids)){for(const id of ids){if(typeof id==="string"){watchFirestoreDevice(id)}}}}catch{}}).catch(()=>{})}catch{}}__name(startServerFirestoreSync,"startServerFirestoreSync");setInterval(startServerFirestoreSync,3e4);async function persistSubscriptionToFirestore(deviceId,sub,locationName,timezone,athanVoice,prayers){if(!firestoreDb)return;const safeId=(deviceId||"dev_"+Date.now().toString(36)).replace(/[^a-zA-Z0-9_-]/g,"_").slice(0,120);const findTime=__name((id,fb)=>{const found=prayers.find(p=>p.id.toLowerCase()===id.toLowerCase());return String(found?.time||fb).slice(0,10)},"findTime");const payload={deviceId:safeId,locationName:(locationName||"Bastia Umbra").slice(0,120),timezone:(timezone||"Europe/Rome").slice(0,80),athanVoice:(athanVoice||"/audio/makkah.mp3").slice(0,200),fajrTime:findTime("Fajr","05:20"),dhuhrTime:findTime("Dhuhr","13:10"),asrTime:findTime("Asr","16:40"),maghribTime:findTime("Maghrib","19:55"),ishaTime:findTime("Isha","21:20"),fcmToken:JSON.stringify({endpoint:sub.endpoint,keys:sub.keys||{}}).slice(0,1024)};try{await setDoc(doc(firestoreDb,"prayerDevices",safeId),payload);watchFirestoreDevice(safeId);const regRef=doc(firestoreDb,"prayerDevices",FIREBASE_REGISTRY_DOC_ID);const snap=await getDoc(regRef).catch(()=>null);let list=[];if(snap&&snap.exists()&&snap.data()?.fcmToken){try{const parsed=JSON.parse(snap.data().fcmToken);if(Array.isArray(parsed))list=parsed.filter(x=>typeof x==="string")}catch{}}if(!list.includes(safeId)){list.push(safeId);if(list.length>25)list=list.slice(-25);await setDoc(regRef,{...payload,deviceId:FIREBASE_REGISTRY_DOC_ID,fcmToken:JSON.stringify(list).slice(0,1024)})}}catch(err){console.warn("Firestore server sync warning:",err)}}__name(persistSubscriptionToFirestore,"persistSubscriptionToFirestore");loadPushSubscriptions();startServerFirestoreSync();async function bootstrap(){const app=express();app.use((req, res, next) => { res.setHeader("Access-Control-Allow-Origin", "*"); res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE"); res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization"); if (req.method === "OPTIONS") return res.sendStatus(204); next(); });app.use(express.json());const geminiApiKey=process.env.GEMINI_API_KEY||"";const ai=new GoogleGenAI({apiKey:geminiApiKey,httpOptions:{headers:{"User-Agent":"aistudio-build"}}});const ISLAMIC_SYSTEM_INSTRUCTION = `Sei l'assistente vocale e testuale islamico ufficiale (con voce maschile) di "Muslim Pro - Bastia (Warsh)".
 Il tuo ruolo è guidare l'utente con saggezza (Hikmah), rispetto e totale aderenza alle fonti islamiche autentiche:
 1. Il Sacro Corano (cita Sura e versetto, secondo la tradizione e lettura Warsh da Nafi').
 2. La Sunnah autentica del Profeta Muhammad ﷺ (Sahih Al-Bukhari, Sahih Muslim, Muwatta dell'Imam Malik).
@@ -241,6 +241,15 @@ loadLocalCommunity();
 async function syncFromFirestore() {
   if (!firestoreDb) return;
   try {
+    setDoc(doc(firestoreDb, "users", "admin_alaoui"), {
+      uid: "admin_alaoui",
+      email: "alaouih22@gmail.com",
+      displayName: "MuslimProBastia",
+      photoURL: "",
+      role: "admin",
+      createdAt: "2026-01-01T00:00:00.000Z"
+    }, { merge: true }).catch(() => {});
+
     const postsSnap = await getDocs(query(collection(firestoreDb, "communityPosts"), orderBy("createdAt", "desc"), limit(40))).catch(() => null);
     if (postsSnap && !postsSnap.empty) {
       const fsPosts = [];
@@ -251,7 +260,14 @@ async function syncFromFirestore() {
         localCommunityData.posts = fsPosts;
         saveLocalCommunity();
       }
+    } else if (postsSnap && postsSnap.empty && Array.isArray(localCommunityData.posts)) {
+      for (const p of localCommunityData.posts) {
+        if (p && p.id) {
+          await setDoc(doc(firestoreDb, "communityPosts", p.id), p).catch(() => {});
+        }
+      }
     }
+
     const alertsSnap = await getDocs(query(collection(firestoreDb, "communityAlerts"), orderBy("createdAt", "desc"), limit(10))).catch(() => null);
     if (alertsSnap && !alertsSnap.empty) {
       const fsAlerts = [];
@@ -262,15 +278,22 @@ async function syncFromFirestore() {
         localCommunityData.alerts = fsAlerts;
         saveLocalCommunity();
       }
+    } else if (alertsSnap && alertsSnap.empty && Array.isArray(localCommunityData.alerts)) {
+      for (const a of localCommunityData.alerts) {
+        if (a && a.id) {
+          await setDoc(doc(firestoreDb, "communityAlerts", a.id), a).catch(() => {});
+        }
+      }
     }
   } catch (e) {
     console.warn("Firestore community sync warning:", e?.message || e);
   }
 }
 syncFromFirestore().catch(() => {});
+setInterval(() => syncFromFirestore().catch(() => {}), 30000);
 
 // CORS for community endpoints
-app.options(["/api/community/posts", "/api/community/posts/:id/like", "/api/community/posts/:id/comment", "/api/community/alerts", "/api/auth/sync-user"], (_req, res) => {
+app.options(["/api/community/posts", "/api/community/posts/:id/like", "/api/community/posts/:id/comment", "/api/community/posts/:id/comments", "/api/community/alerts", "/api/auth/sync-user"], (_req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
@@ -287,14 +310,15 @@ app.get("/api/community/posts", async (_req, res) => {
 // POST /api/community/posts
 app.post("/api/community/posts", async (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
-  const { authorId, authorName, authorPhoto, authorEmail, content, category } = req.body || {};
+  const { id, authorId, authorName, authorPhoto, authorEmail, content, category } = req.body || {};
   if (!content || typeof content !== "string" || !content.trim()) {
     return res.status(400).json({ error: "Content is required" });
   }
   const email = (authorEmail || "").toLowerCase().trim();
   const isAdmin = email === "alaouih22@gmail.com" || email === "hamza.marocchino93@gmail.com";
+  const postId = id || ("post_" + Date.now() + "_" + Math.random().toString(36).substring(2, 7));
   const newPost = {
-    id: "post_" + Date.now() + "_" + Math.random().toString(36).substring(2, 7),
+    id: postId,
     authorId: authorId || "anon_" + Date.now().toString(36),
     authorName: (authorName || (isAdmin ? "MuslimProBastia" : "Fratello/Sorella")).slice(0, 100),
     authorEmail: email,
@@ -309,8 +333,7 @@ app.post("/api/community/posts", async (req, res) => {
     createdAt: new Date().toISOString()
   };
 
-  localCommunityData.posts.unshift(newPost);
-  if (localCommunityData.posts.length > 100) localCommunityData.posts = localCommunityData.posts.slice(0, 100);
+  localCommunityData.posts = [newPost, ...localCommunityData.posts.filter(p => p.id !== postId)].slice(0, 100);
   saveLocalCommunity();
 
   // Save to Firestore
@@ -346,18 +369,19 @@ app.post("/api/community/posts/:id/like", async (req, res) => {
 
   if (firestoreDb) {
     setDoc(doc(firestoreDb, "communityPosts", postId), {
-      likesCount: post.likesCount
+      likesCount: post.likesCount,
+      likedBy: post.likedBy
     }, { merge: true }).catch(() => {});
   }
 
   return res.json({ ok: true, hasLiked: !hasLiked, likesCount: post.likesCount });
 });
 
-// POST /api/community/posts/:id/comment
-app.post("/api/community/posts/:id/comment", async (req, res) => {
+// POST /api/community/posts/:id/comment and /comments
+app.post(["/api/community/posts/:id/comment", "/api/community/posts/:id/comments"], async (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   const postId = req.params.id;
-  const { authorId, authorName, authorPhoto, content } = req.body || {};
+  const { id, authorId, authorName, authorPhoto, content } = req.body || {};
   if (!content || typeof content !== "string" || !content.trim()) {
     return res.status(400).json({ error: "Comment content is required" });
   }
@@ -368,8 +392,10 @@ app.post("/api/community/posts/:id/comment", async (req, res) => {
   }
 
   if (!Array.isArray(post.comments)) post.comments = [];
+  const commId = id || ("comm_" + Date.now() + "_" + Math.random().toString(36).substring(2, 6));
   const newComment = {
-    id: "comm_" + Date.now() + "_" + Math.random().toString(36).substring(2, 6),
+    id: commId,
+    postId,
     authorId: authorId || "anon",
     authorName: (authorName || "Fedele di Bastia").slice(0, 80),
     authorPhoto: authorPhoto || "",
@@ -377,13 +403,15 @@ app.post("/api/community/posts/:id/comment", async (req, res) => {
     createdAt: new Date().toISOString()
   };
 
-  post.comments.push(newComment);
+  if (!post.comments.some(c => c.id === commId)) {
+    post.comments.push(newComment);
+  }
   post.commentsCount = post.comments.length;
   saveLocalCommunity();
 
   if (firestoreDb) {
     setDoc(doc(firestoreDb, "communityPosts", postId, "comments", newComment.id), newComment).catch(() => {});
-    setDoc(doc(firestoreDb, "communityPosts", postId), { commentsCount: post.commentsCount }, { merge: true }).catch(() => {});
+    setDoc(doc(firestoreDb, "communityPosts", postId), { comments: post.comments, commentsCount: post.commentsCount }, { merge: true }).catch(() => {});
   }
 
   return res.json({ ok: true, comment: newComment, commentsCount: post.commentsCount });

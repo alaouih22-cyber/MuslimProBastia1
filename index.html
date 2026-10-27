@@ -46,13 +46,28 @@
             };
           }
 
-          // Smart API & Static Asset Fallback for GitHub Pages / Static Hosting
+          // Firebase configuration for alaouih22@gmail.com project
+          window.__FIREBASE_CONFIG__ = {
+            projectId: "spartan-quasar-l03js",
+            appId: "1:1065948373365:web:eb94e98c1fef56e90ff33c",
+            apiKey: "AIzaSyAW8JtzY5R-HyCWL97b1EpgH8fyqestD3s",
+            authDomain: "spartan-quasar-l03js.firebaseapp.com",
+            firestoreDatabaseId: "ai-studio-remixmuslimproba-41543aa4-f6b0-425c-8c46-b1ff3dbf8796",
+            storageBucket: "spartan-quasar-l03js.firebasestorage.app",
+            messagingSenderId: "1065948373365",
+            oAuthClientId: "1065948373365-pjdbeb986u4nu3pambqk1rlhradmmqqm.apps.googleusercontent.com"
+          };
+
+          // Smart API & Static Asset Fallback for GitHub Pages / Static Hosting / Android APK
           var LIVE_BACKEND = 'https://ais-pre-mr4e2i4eum4xde3afw2k4u-552873705925.europe-west3.run.app';
+          var LIVE_BACKEND_DEV = 'https://ais-dev-mr4e2i4eum4xde3afw2k4u-552873705925.europe-west3.run.app';
           window.__MP_LIVE_BACKEND = LIVE_BACKEND;
           var isStaticHost = window.location.hostname.indexOf('github.io') !== -1 ||
                              window.location.hostname.indexOf('vercel.app') !== -1 ||
                              window.location.hostname.indexOf('netlify.app') !== -1 ||
-                             window.location.hostname.indexOf('pages.dev') !== -1;
+                             window.location.hostname.indexOf('pages.dev') !== -1 ||
+                             window.location.hostname === '127.0.0.1' ||
+                             Boolean(window.AndroidNativeBridge);
 
           window.__getDownloadUrls = function(type) {
             var isGH = window.location.hostname.indexOf('github.io') !== -1;
@@ -252,9 +267,17 @@
                 if (isStaticHost) {
                   return origFetch(LIVE_BACKEND + apiPath, init).then(function(res) {
                     if (res && res.ok) return res;
-                    return handleLocalApiFallback(apiPath, init);
+                    return origFetch(LIVE_BACKEND_DEV + apiPath, init).then(function(res2) {
+                      if (res2 && res2.ok) return res2;
+                      return handleLocalApiFallback(apiPath, init);
+                    });
                   }).catch(function() {
-                    return handleLocalApiFallback(apiPath, init);
+                    return origFetch(LIVE_BACKEND_DEV + apiPath, init).then(function(res2) {
+                      if (res2 && res2.ok) return res2;
+                      return handleLocalApiFallback(apiPath, init);
+                    }).catch(function() {
+                      return handleLocalApiFallback(apiPath, init);
+                    });
                   });
                 }
                 return origFetch(input, init).then(function(res) {

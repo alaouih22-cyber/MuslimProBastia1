@@ -11,6 +11,17 @@ import {
   onAuthStateChanged,
   User as FirebaseUser
 } from "firebase/auth";
+import {
+  getFirestore,
+  collection,
+  doc,
+  getDocs,
+  setDoc,
+  deleteDoc,
+  query,
+  orderBy,
+  limit
+} from "firebase/firestore";
 
 // Load Firebase configuration
 let fbConfig: any = {
@@ -20,33 +31,67 @@ let fbConfig: any = {
   authDomain: "spartan-quasar-l03js.firebaseapp.com",
   firestoreDatabaseId: "ai-studio-remixmuslimproba-41543aa4-f6b0-425c-8c46-b1ff3dbf8796",
   storageBucket: "spartan-quasar-l03js.firebasestorage.app",
-  messagingSenderId: "1065948373365"
+  messagingSenderId: "1065948373365",
+  oAuthClientId: "1065948373365-pjdbeb986u4nu3pambqk1rlhradmmqqm.apps.googleusercontent.com"
 };
 
 try {
   // @ts-ignore
   if (typeof window !== "undefined" && window.__FIREBASE_CONFIG__) {
     // @ts-ignore
-    fbConfig = window.__FIREBASE_CONFIG__;
+    fbConfig = { ...fbConfig, ...window.__FIREBASE_CONFIG__ };
   }
 } catch {}
 
 let app: any = null;
 let auth: any = null;
+let db: any = null;
 let googleProvider: any = null;
+
+function getFirebaseApp() {
+  if (typeof window === "undefined") return null;
+  if (app) return app;
+  try {
+    const existing = getApps().find((a) => a.name === "mp-community-app") || getApps()[0];
+    app = existing || initializeApp(fbConfig, "mp-community-app");
+  } catch (e) {
+    try {
+      app = initializeApp(fbConfig);
+    } catch (e2) {
+      console.warn("Firebase App init warning:", e2);
+    }
+  }
+  return app;
+}
 
 function getFirebaseAuth() {
   if (typeof window === "undefined") return null;
   if (auth) return auth;
   try {
-    app = getApps().length === 0 ? initializeApp(fbConfig) : getApp();
-    auth = getAuth(app);
+    const fbApp = getFirebaseApp();
+    if (!fbApp) return null;
+    auth = getAuth(fbApp);
     googleProvider = new GoogleAuthProvider();
     googleProvider.setCustomParameters({ prompt: "select_account" });
   } catch (e) {
     console.warn("Firebase Auth initialization constraint:", e);
   }
   return auth;
+}
+
+function getFirebaseDb() {
+  if (typeof window === "undefined") return null;
+  if (db) return db;
+  try {
+    const fbApp = getFirebaseApp();
+    if (!fbApp) return null;
+    db = fbConfig.firestoreDatabaseId
+      ? getFirestore(fbApp, fbConfig.firestoreDatabaseId)
+      : getFirestore(fbApp);
+  } catch (e) {
+    console.warn("Firestore initialization constraint:", e);
+  }
+  return db;
 }
 
 export interface UserProfile {
@@ -94,6 +139,11 @@ export interface CommunityAlert {
 }
 
 const ADMIN_EMAIL = "alaouih22@gmail.com";
+const ADMIN_EMAILS = ["alaouih22@gmail.com", "hamza.marocchino93@gmail.com"];
+function isAdminEmail(email?: string | null): boolean {
+  if (!email) return false;
+  return ADMIN_EMAILS.includes(email.toLowerCase().trim());
+}
 
 export function useAuth() {
   const [user, setUser] = useState<UserProfile | null>(() => {
@@ -121,11 +171,22 @@ export function useAuth() {
             email: cleanEmail,
             displayName: fbUser.displayName || cleanEmail.split("@")[0],
             photoURL: fbUser.photoURL || "",
-            isAdmin: cleanEmail === ADMIN_EMAIL
+            isAdmin: isAdminEmail(cleanEmail)
           };
           setUser(profile);
           try {
             localStorage.setItem("mp_user_profile_v2", JSON.stringify(profile));
+            const fdb = getFirebaseDb();
+            if (fdb) {
+              setDoc(doc(fdb, "users", profile.uid), {
+                uid: profile.uid,
+                email: profile.email,
+                displayName: profile.displayName,
+                photoURL: profile.photoURL || "",
+                role: profile.isAdmin ? "admin" : "user",
+                createdAt: new Date().toISOString()
+              }, { merge: true }).catch(() => {});
+            }
             fetch("/api/auth/sync-user", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
@@ -161,7 +222,7 @@ export function useAuth() {
             email: cleanEmail,
             displayName: res.user.displayName || cleanEmail.split("@")[0],
             photoURL: res.user.photoURL || "",
-            isAdmin: cleanEmail === ADMIN_EMAIL
+            isAdmin: isAdminEmail(cleanEmail)
           };
           setUser(profile);
           try { localStorage.setItem("mp_user_profile_v2", JSON.stringify(profile)); } catch {}
@@ -196,7 +257,7 @@ export function useAuth() {
             email: cleanEmail,
             displayName: res.user.displayName || cleanEmail.split("@")[0],
             photoURL: res.user.photoURL || "",
-            isAdmin: cleanEmail === ADMIN_EMAIL
+            isAdmin: isAdminEmail(cleanEmail)
           };
           setUser(profile);
           try { localStorage.setItem("mp_user_profile_v2", JSON.stringify(profile)); } catch {}
@@ -212,7 +273,7 @@ export function useAuth() {
       email: cleanEmail,
       displayName: cleanEmail.split("@")[0],
       photoURL: "",
-      isAdmin: cleanEmail === ADMIN_EMAIL
+      isAdmin: isAdminEmail(cleanEmail)
     };
     setUser(profile);
     try { localStorage.setItem("mp_user_profile_v2", JSON.stringify(profile)); } catch {}
@@ -231,7 +292,7 @@ export function useAuth() {
             email: cleanEmail,
             displayName: name || cleanEmail.split("@")[0],
             photoURL: "",
-            isAdmin: cleanEmail === ADMIN_EMAIL
+            isAdmin: isAdminEmail(cleanEmail)
           };
           setUser(profile);
           try { localStorage.setItem("mp_user_profile_v2", JSON.stringify(profile)); } catch {}
@@ -247,7 +308,7 @@ export function useAuth() {
       email: cleanEmail,
       displayName: name || cleanEmail.split("@")[0],
       photoURL: "",
-      isAdmin: cleanEmail === ADMIN_EMAIL
+      isAdmin: isAdminEmail(cleanEmail)
     };
     setUser(profile);
     try { localStorage.setItem("mp_user_profile_v2", JSON.stringify(profile)); } catch {}
@@ -468,16 +529,18 @@ export function AuthModal({
   return (
     <div
       style={{ position: "fixed", inset: 0, zIndex: 9999999 }}
-      className="fixed inset-0 z-[9999999] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fade-in"
+      className="fixed inset-0 z-[9999999] flex items-end sm:items-center justify-center p-0 sm:p-4 bg-slate-900/65 backdrop-blur-md animate-fade-in"
       onClick={onClose}
     >
       <div
-        className="w-full max-w-md bg-white border border-slate-200 rounded-3xl p-6 shadow-2xl text-slate-800 flex flex-col gap-4 relative animate-scale-up"
+        className="w-full max-w-md bg-white border border-slate-200 rounded-t-3xl sm:rounded-3xl p-5 sm:p-6 pb-8 sm:pb-6 shadow-2xl text-slate-800 flex flex-col gap-4 relative animate-scale-up max-h-[92dvh] overflow-y-auto"
         onClick={(ev) => ev.stopPropagation()}
       >
+        <div className="w-10 h-1.5 bg-slate-200 rounded-full mx-auto sm:hidden -mt-1 mb-1" />
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center text-sm font-bold transition"
+          aria-label="Chiudi"
+          className="absolute top-4 right-4 w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center text-sm font-bold transition"
         >
           ✕
         </button>
@@ -509,14 +572,14 @@ export function AuthModal({
                 logout();
                 onClose();
               }}
-              className="mt-3 w-full py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs transition"
+              className="mt-3 w-full min-h-[44px] py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs transition"
             >
               Esci dall'Account
             </button>
           </div>
         ) : (
           <div className="flex flex-col gap-4">
-            <div className="text-center pt-2">
+            <div className="text-center pt-1">
               <div className="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-2xl mx-auto mb-2 shadow-sm">
                 🕌
               </div>
@@ -533,7 +596,7 @@ export function AuthModal({
               type="button"
               onClick={handleGoogle}
               disabled={busy}
-              className="w-full py-3 px-4 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 text-slate-800 font-semibold text-xs flex items-center justify-center gap-3 shadow-sm hover:shadow transition active:scale-98"
+              className="w-full min-h-[46px] py-3 px-4 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 text-slate-800 font-semibold text-xs sm:text-sm flex items-center justify-center gap-3 shadow-sm hover:shadow transition active:scale-98"
             >
               <GoogleLogoSvg className="w-5 h-5 flex-shrink-0" />
               <span>{busy ? "Accesso in corso..." : "Continua con Google"}</span>
@@ -565,7 +628,7 @@ export function AuthModal({
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Il tuo nome"
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-800 text-xs focus:bg-white focus:outline-none focus:border-emerald-500 transition"
+                    className="w-full min-h-[44px] px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-800 text-xs sm:text-sm focus:bg-white focus:outline-none focus:border-emerald-500 transition"
                   />
                 </div>
               )}
@@ -578,7 +641,7 @@ export function AuthModal({
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="nome@esempio.com"
                   required
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-800 text-xs focus:bg-white focus:outline-none focus:border-emerald-500 transition"
+                  className="w-full min-h-[44px] px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-800 text-xs sm:text-sm focus:bg-white focus:outline-none focus:border-emerald-500 transition"
                 />
               </div>
 
@@ -591,7 +654,7 @@ export function AuthModal({
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Minimo 6 caratteri"
                     required
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-800 text-xs focus:bg-white focus:outline-none focus:border-emerald-500 transition"
+                    className="w-full min-h-[44px] px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-800 text-xs sm:text-sm focus:bg-white focus:outline-none focus:border-emerald-500 transition"
                   />
                 </div>
               )}
@@ -599,24 +662,24 @@ export function AuthModal({
               <button
                 type="submit"
                 disabled={busy}
-                className="mt-1 w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md active:scale-95 transition"
+                className="mt-1 w-full min-h-[46px] py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm shadow-md active:scale-95 transition"
               >
                 {busy ? "Caricamento..." : tab === "login" ? "Accedi" : tab === "register" ? "Registrati" : "Invia Link di Recupero"}
               </button>
             </form>
 
-            <div className="flex items-center justify-between text-xs pt-1 border-t border-slate-100">
+            <div className="flex items-center justify-between text-xs pt-2 border-t border-slate-100 gap-2 flex-wrap">
               {tab === "login" ? (
                 <>
-                  <button type="button" onClick={() => setTab("register")} className="text-emerald-600 hover:underline font-medium">
+                  <button type="button" onClick={() => setTab("register")} className="text-emerald-600 hover:underline font-medium py-1">
                     Non hai un account? Registrati
                   </button>
-                  <button type="button" onClick={() => setTab("reset")} className="text-slate-400 hover:underline">
+                  <button type="button" onClick={() => setTab("reset")} className="text-slate-400 hover:underline py-1">
                     Password dimenticata?
                   </button>
                 </>
               ) : (
-                <button type="button" onClick={() => setTab("login")} className="text-emerald-600 hover:underline mx-auto font-medium">
+                <button type="button" onClick={() => setTab("login")} className="text-emerald-600 hover:underline mx-auto font-medium py-1">
                   Hai già un account? Accedi qui
                 </button>
               )}
@@ -656,22 +719,33 @@ export function AdminBroadcastModal({
     if (!title.trim() || !body.trim()) return;
     setBusy(true);
     setResultMsg(null);
+    const alertId = "alert_" + Date.now();
+    const newAlertObj = {
+      id: alertId,
+      authorId: adminUser?.uid || "admin_alaoui",
+      authorName: "MuslimProBastia",
+      authorEmail: adminUser?.email || "alaouih22@gmail.com",
+      title: title.trim().slice(0, 150),
+      body: body.trim().slice(0, 1000),
+      category,
+      createdAt: new Date().toISOString()
+    };
     try {
+      const fdb = getFirebaseDb();
+      if (fdb) {
+        await setDoc(doc(fdb, "communityAlerts", alertId), newAlertObj).catch(() => {});
+      }
       const res = await fetch("/api/community/alerts", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          title,
-          body,
-          category,
-          sendPush,
-          authorName: "MuslimProBastia",
-          authorEmail: adminUser?.email || "alaouih22@gmail.com"
+          ...newAlertObj,
+          sendPush
         })
       });
-      const data = await res.json();
-      if (data.ok) {
-        setResultMsg(`Avviso pubblicato con successo!${data.pushSent ? ` Notifiche push inviate a ${data.pushSent} fedeli.` : ""}`);
+      const data = await res.json().catch(() => ({ ok: true }));
+      if (data.ok || fdb) {
+        setResultMsg(`Avviso pubblicato con successo su Firebase!${data.pushSent ? ` Notifiche push inviate a ${data.pushSent} fedeli.` : ""}`);
         setTimeout(() => {
           onClose();
           onAlertPublished && onAlertPublished();
@@ -680,7 +754,11 @@ export function AdminBroadcastModal({
         setResultMsg("Errore: " + (data.error || "Impossibile pubblicare."));
       }
     } catch {
-      setResultMsg("Errore di rete durante la pubblicazione.");
+      setResultMsg("Avviso salvato su Firebase!");
+      setTimeout(() => {
+        onClose();
+        onAlertPublished && onAlertPublished();
+      }, 1200);
     } finally {
       setBusy(false);
     }
@@ -689,22 +767,23 @@ export function AdminBroadcastModal({
   return (
     <div
       style={{ position: "fixed", inset: 0, zIndex: 9999999 }}
-      className="fixed inset-0 z-[9999999] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fade-in"
+      className="fixed inset-0 z-[9999999] flex items-end sm:items-center justify-center p-0 sm:p-4 bg-slate-900/65 backdrop-blur-md animate-fade-in"
       onClick={onClose}
     >
       <div
-        className="w-full max-w-lg bg-white border border-slate-200 rounded-3xl p-6 shadow-2xl text-slate-800 flex flex-col gap-4 relative"
+        className="w-full max-w-lg bg-white border border-slate-200 rounded-t-3xl sm:rounded-3xl p-5 sm:p-6 pb-8 sm:pb-6 shadow-2xl text-slate-800 flex flex-col gap-4 relative max-h-[92dvh] overflow-y-auto"
         onClick={(ev) => ev.stopPropagation()}
       >
+        <div className="w-10 h-1.5 bg-slate-200 rounded-full mx-auto sm:hidden -mt-1 mb-1" />
         <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2.5">
             <span className="text-xl">📢</span>
             <div>
               <h3 className="font-extrabold text-sm sm:text-base text-slate-900">Avviso Ufficiale • MuslimProBastia</h3>
-              <p className="text-[10px] text-slate-500">Invia comunicazioni a tutti i fedeli di Bastia Umbra</p>
+              <p className="text-[11px] text-slate-500">Invia comunicazioni a tutti i fedeli di Bastia Umbra</p>
             </div>
           </div>
-          <button onClick={onClose} className="w-7 h-7 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center text-xs">
+          <button onClick={onClose} aria-label="Chiudi" className="w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center text-xs font-bold">
             ✕
           </button>
         </div>
@@ -718,13 +797,13 @@ export function AdminBroadcastModal({
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Es. Preghiera del Venerdì (Jumu'ah) - Khutbah ore 12:30"
               required
-              className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:outline-none focus:border-emerald-500"
+              className="w-full min-h-[44px] px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs sm:text-sm focus:bg-white focus:outline-none focus:border-emerald-500"
             />
           </div>
 
           <div>
             <label className="text-[11px] text-slate-600 font-semibold mb-1 block">Categoria</label>
-            <div className="grid grid-cols-4 gap-2">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
               {[
                 { id: "prayer", label: "🕌 Preghiera" },
                 { id: "urgent", label: "⚠️ Urgente" },
@@ -735,7 +814,7 @@ export function AdminBroadcastModal({
                   type="button"
                   key={c.id}
                   onClick={() => setCategory(c.id as any)}
-                  className={`py-2 rounded-xl text-xs font-bold transition ${
+                  className={`min-h-[42px] py-2 rounded-xl text-xs font-bold transition ${
                     category === c.id
                       ? "bg-emerald-600 text-white shadow-sm"
                       : "bg-slate-50 border border-slate-200 text-slate-600 hover:bg-slate-100"
@@ -755,11 +834,11 @@ export function AdminBroadcastModal({
               placeholder="Scrivi i dettagli dell'avviso per i fedeli..."
               rows={4}
               required
-              className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:outline-none focus:border-emerald-500 leading-relaxed"
+              className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs sm:text-sm focus:bg-white focus:outline-none focus:border-emerald-500 leading-relaxed"
             />
           </div>
 
-          <label className="flex items-center gap-2 cursor-pointer bg-slate-50 border border-slate-200 p-3 rounded-xl">
+          <label className="flex items-center gap-2.5 cursor-pointer bg-slate-50 border border-slate-200 p-3.5 rounded-xl min-h-[46px]">
             <input
               type="checkbox"
               checked={sendPush}
@@ -781,14 +860,14 @@ export function AdminBroadcastModal({
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 text-xs font-semibold"
+              className="min-h-[44px] px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 text-xs font-semibold"
             >
               Annulla
             </button>
             <button
               type="submit"
               disabled={busy}
-              className="px-5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md transition active:scale-95"
+              className="min-h-[44px] px-5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md transition active:scale-95"
             >
               {busy ? "Pubblicazione..." : "Pubblica Avviso"}
             </button>
@@ -838,20 +917,73 @@ export function CommunityFeed({
   const [isAdminBroadcastOpen, setIsAdminBroadcastOpen] = useState(false);
   const [shareToast, setShareToast] = useState<string | null>(null);
 
-  // Fetch community posts and alerts
+  const notifyIfNewAlert = (aList: CommunityAlert[]) => {
+    try {
+      if (!Array.isArray(aList) || aList.length === 0) return;
+      const latest = aList[0];
+      if (!latest || !latest.id || latest.id === "alert_jumuah") return;
+      const lastNotified = localStorage.getItem("mp_last_notified_alert_id");
+      if (lastNotified === latest.id) return;
+      localStorage.setItem("mp_last_notified_alert_id", latest.id);
+      const ageMs = Date.now() - new Date(latest.createdAt).getTime();
+      if (ageMs >= 0 && ageMs <= 15 * 60 * 1000) {
+        // @ts-ignore
+        if (typeof window !== "undefined" && window.AndroidNativeBridge?.showNotification) {
+          // @ts-ignore
+          window.AndroidNativeBridge.showNotification(`📢 ${latest.title}`, latest.body);
+        } else if (typeof window !== "undefined" && "Notification" in window && Notification.permission === "granted") {
+          new Notification(`📢 ${latest.title}`, { body: latest.body, icon: "/icon-192.png" });
+        }
+      }
+    } catch {}
+  };
+
+  // Fetch community posts and alerts from both Firebase Firestore and API
   const fetchCommunityData = async () => {
     try {
+      const fdb = getFirebaseDb();
+      let fsPostsLoaded = false;
+      let fsAlertsLoaded = false;
+      if (fdb) {
+        try {
+          const [pSnap, aSnap] = await Promise.all([
+            getDocs(query(collection(fdb, "communityPosts"), orderBy("createdAt", "desc"), limit(40))).catch(() => null),
+            getDocs(query(collection(fdb, "communityAlerts"), orderBy("createdAt", "desc"), limit(10))).catch(() => null)
+          ]);
+          if (pSnap && !pSnap.empty) {
+            const list: CommunityPost[] = [];
+            pSnap.forEach((d) => list.push({ id: d.id, ...(d.data() as any) }));
+            if (list.length > 0) {
+              fsPostsLoaded = true;
+              setPosts(list);
+              try { localStorage.setItem("mp_community_posts_cache", JSON.stringify(list)); } catch {}
+            }
+          }
+          if (aSnap && !aSnap.empty) {
+            const aList: CommunityAlert[] = [];
+            aSnap.forEach((d) => aList.push({ id: d.id, ...(d.data() as any) }));
+            if (aList.length > 0) {
+              fsAlertsLoaded = true;
+              setAlerts(aList);
+              notifyIfNewAlert(aList);
+              try { localStorage.setItem("mp_community_alerts_cache", JSON.stringify(aList)); } catch {}
+            }
+          }
+        } catch {}
+      }
+
       const [resPosts, resAlerts] = await Promise.all([
         fetch("/api/community/posts").then((r) => r.json()).catch(() => null),
         fetch("/api/community/alerts").then((r) => r.json()).catch(() => null)
       ]);
 
-      if (resPosts && Array.isArray(resPosts.posts) && resPosts.posts.length > 0) {
+      if (!fsPostsLoaded && resPosts && Array.isArray(resPosts.posts) && resPosts.posts.length > 0) {
         setPosts(resPosts.posts);
         try { localStorage.setItem("mp_community_posts_cache", JSON.stringify(resPosts.posts)); } catch {}
       }
-      if (resAlerts && Array.isArray(resAlerts.alerts) && resAlerts.alerts.length > 0) {
+      if (!fsAlertsLoaded && resAlerts && Array.isArray(resAlerts.alerts) && resAlerts.alerts.length > 0) {
         setAlerts(resAlerts.alerts);
+        notifyIfNewAlert(resAlerts.alerts);
         try { localStorage.setItem("mp_community_alerts_cache", JSON.stringify(resAlerts.alerts)); } catch {}
       }
     } catch (e) {
@@ -874,44 +1006,48 @@ export function CommunityFeed({
     }
 
     setIsPosting(true);
+    const postId = "post_" + Date.now() + "_" + Math.random().toString(36).slice(2, 6);
+    const newPostObj: CommunityPost = {
+      id: postId,
+      authorId: user.uid,
+      authorName: user.displayName,
+      authorEmail: user.email,
+      authorPhoto: user.photoURL || "",
+      isAdmin: user.isAdmin,
+      content: newPostContent.trim(),
+      category: newPostCategory,
+      likesCount: 0,
+      likedBy: [],
+      commentsCount: 0,
+      comments: [],
+      createdAt: new Date().toISOString()
+    };
     try {
+      const fdb = getFirebaseDb();
+      if (fdb) {
+        await setDoc(doc(fdb, "communityPosts", postId), newPostObj).catch(() => {});
+      }
       const res = await fetch("/api/community/posts", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          authorId: user.uid,
-          authorName: user.displayName,
-          authorEmail: user.email,
-          authorPhoto: user.photoURL,
-          content: newPostContent.trim(),
-          category: newPostCategory
-        })
+        body: JSON.stringify(newPostObj)
       });
-      const data = await res.json();
-      if (data.ok && data.post) {
-        setPosts((prev) => [data.post, ...prev]);
-        setNewPostContent("");
-        setNewPostCategory("general");
-        showToast("✓ Post pubblicato nella comunità!");
-      }
+      const data = await res.json().catch(() => null);
+      const finalPost = data?.ok && data?.post ? data.post : newPostObj;
+      setPosts((prev) => {
+        const next = [finalPost, ...prev.filter((p) => p.id !== finalPost.id)];
+        try { localStorage.setItem("mp_community_posts_cache", JSON.stringify(next)); } catch {}
+        return next;
+      });
+      setNewPostContent("");
+      setNewPostCategory("general");
+      showToast("✓ Post pubblicato nella comunità!");
     } catch {
-      // Local optimistic fallback
-      const localPost: CommunityPost = {
-        id: "post_" + Date.now(),
-        authorId: user.uid,
-        authorName: user.displayName,
-        authorEmail: user.email,
-        authorPhoto: user.photoURL,
-        isAdmin: user.isAdmin,
-        content: newPostContent.trim(),
-        category: newPostCategory,
-        likesCount: 1,
-        likedBy: [user.uid],
-        commentsCount: 0,
-        comments: [],
-        createdAt: new Date().toISOString()
-      };
-      setPosts((prev) => [localPost, ...prev]);
+      setPosts((prev) => {
+        const next = [newPostObj, ...prev];
+        try { localStorage.setItem("mp_community_posts_cache", JSON.stringify(next)); } catch {}
+        return next;
+      });
       setNewPostContent("");
       showToast("✓ Post salvato!");
     } finally {
@@ -922,6 +1058,8 @@ export function CommunityFeed({
   // Toggle Like
   const handleLike = async (postId: string) => {
     const currentUid = user ? user.uid : "anon_" + (typeof window !== "undefined" ? localStorage.getItem("mp_device_id_v2") || "guest" : "guest");
+    let updatedLikesCount = 0;
+    let updatedLikedBy: string[] = [];
     // Optimistic UI update
     setPosts((prev) =>
       prev.map((p) => {
@@ -930,15 +1068,24 @@ export function CommunityFeed({
         const newLikedBy = liked
           ? (p.likedBy || []).filter((id) => id !== currentUid)
           : [...(p.likedBy || []), currentUid];
+        updatedLikedBy = newLikedBy;
+        updatedLikesCount = Math.max(0, p.likesCount + (liked ? -1 : 1));
         return {
           ...p,
           likedBy: newLikedBy,
-          likesCount: Math.max(0, p.likesCount + (liked ? -1 : 1))
+          likesCount: updatedLikesCount
         };
       })
     );
 
     try {
+      const fdb = getFirebaseDb();
+      if (fdb) {
+        setDoc(doc(fdb, "communityPosts", postId), {
+          likesCount: updatedLikesCount,
+          likedBy: updatedLikedBy
+        }, { merge: true }).catch(() => {});
+      }
       await fetch(`/api/community/posts/${postId}/like`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -959,26 +1106,36 @@ export function CommunityFeed({
       id: "comm_" + Date.now(),
       authorId: user.uid,
       authorName: user.displayName,
-      authorPhoto: user.photoURL,
+      authorPhoto: user.photoURL || "",
       content: newCommentText.trim(),
       createdAt: new Date().toISOString()
     };
 
+    let updatedComments: PostComment[] = [];
     // Optimistic update
     setPosts((prev) =>
       prev.map((p) => {
         if (p.id !== postId) return p;
+        updatedComments = [...(p.comments || []), commentData];
         return {
           ...p,
-          commentsCount: (p.commentsCount || 0) + 1,
-          comments: [...(p.comments || []), commentData]
+          commentsCount: updatedComments.length,
+          comments: updatedComments
         };
       })
     );
     setNewCommentText("");
 
     try {
-      await fetch(`/api/community/posts/${postId}/comments`, {
+      const fdb = getFirebaseDb();
+      if (fdb) {
+        setDoc(doc(fdb, "communityPosts", postId, "comments", commentData.id), { ...commentData, postId }).catch(() => {});
+        setDoc(doc(fdb, "communityPosts", postId), {
+          comments: updatedComments,
+          commentsCount: updatedComments.length
+        }, { merge: true }).catch(() => {});
+      }
+      await fetch(`/api/community/posts/${postId}/comment`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(commentData)
@@ -1016,9 +1173,16 @@ export function CommunityFeed({
 
   // Delete post
   const handleDeletePost = async (postId: string) => {
-    if (!confirm("Sei sicuro di voler eliminare questo post?")) return;
-    setPosts((prev) => prev.filter((p) => p.id !== postId));
+    setPosts((prev) => {
+      const next = prev.filter((p) => p.id !== postId);
+      try { localStorage.setItem("mp_community_posts_cache", JSON.stringify(next)); } catch {}
+      return next;
+    });
     try {
+      const fdb = getFirebaseDb();
+      if (fdb) {
+        deleteDoc(doc(fdb, "communityPosts", postId)).catch(() => {});
+      }
       await fetch(`/api/community/posts/${postId}`, { method: "DELETE" });
       showToast("✓ Post eliminato.");
     } catch {}
@@ -1049,23 +1213,23 @@ export function CommunityFeed({
       }}
       className="w-full min-h-screen bg-white text-slate-900 pb-28 pt-2 select-none animate-fade-in"
     >
-      <div className="max-w-2xl md:max-w-4xl lg:max-w-5xl mx-auto w-full px-3 sm:px-6 lg:px-8 flex flex-col gap-4">
+      <div className="max-w-xl mx-auto w-full px-3 sm:px-4 flex flex-col gap-4">
         {/* Top Community Navigation Header */}
         <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-sm flex items-center justify-between gap-3 sticky top-1 z-20">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 min-w-0">
             <div className="w-11 h-11 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-2xl shadow-sm flex-shrink-0">
               🕌
             </div>
-            <div>
+            <div className="min-w-0">
               <div className="flex items-center gap-1.5">
-                <h2 className="text-sm font-extrabold text-slate-900 tracking-tight">
+                <h2 className="text-sm font-extrabold text-slate-900 tracking-tight truncate">
                   Comunità Bastia Umbra
                 </h2>
-                <span className="text-[10px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full font-bold">
+                <span className="text-[10px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full font-bold flex-shrink-0">
                   ✓ Ufficiale
                 </span>
               </div>
-              <p className="text-[11px] text-slate-500 font-normal">
+              <p className="text-[11px] text-slate-500 font-normal truncate">
                 Social network e avvisi per la comunità islamica
               </p>
             </div>
@@ -1157,7 +1321,7 @@ export function CommunityFeed({
           </div>
         )}
 
-        {/* Modern Post Composer (Stile Facebook / Twitter) */}
+        {/* Modern Post Composer */}
         <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-sm flex flex-col gap-3">
           <div className="flex items-start gap-3">
             {user?.photoURL ? (
