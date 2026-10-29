@@ -2,6 +2,10 @@
 try {
   importScripts('./public/sw.js');
 } catch (e) {
-  self.addEventListener('install', function() { self.skipWaiting(); });
-  self.addEventListener('activate', function(event) { event.waitUntil(self.clients.claim()); });
+  try {
+    importScripts('/public/sw.js');
+  } catch (e2) {
+    self.addEventListener('install', function() { self.skipWaiting(); });
+    self.addEventListener('activate', function(event) { event.waitUntil(self.clients.claim()); });
+  }
 }

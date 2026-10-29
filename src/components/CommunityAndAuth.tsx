@@ -1213,7 +1213,7 @@ export function CommunityFeed({
       }}
       className="w-full min-h-screen bg-white text-slate-900 pb-28 pt-2 select-none animate-fade-in"
     >
-      <div className="max-w-xl mx-auto w-full px-3 sm:px-4 flex flex-col gap-4">
+      <div className="w-full mx-auto px-2 sm:px-4 flex flex-col gap-4">
         {/* Top Community Navigation Header */}
         <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-sm flex items-center justify-between gap-3 sticky top-1 z-20">
           <div className="flex items-center gap-3 min-w-0">
@@ -1429,7 +1429,7 @@ export function CommunityFeed({
             Nessun post trovato in questa sezione. Condividi il primo pensiero per la comunità!
           </div>
         ) : (
-          <div className="flex flex-col gap-3.5">
+          <div className="flex flex-col gap-3.5 mp-community-grid">
             {filteredPosts.map((post) => {
               const currentUid = user ? user.uid : "anon";
               const isLiked = Array.isArray(post.likedBy) && post.likedBy.includes(currentUid);
