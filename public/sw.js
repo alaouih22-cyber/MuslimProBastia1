@@ -13,7 +13,7 @@
   }
 
   // Service Worker for MuslimPro Warsh - Offline & Push Notification Pop-up + Adhan Support
-  const CACHE_NAME = 'warsh-quran-v42';
+  const CACHE_NAME = 'warsh-quran-v43';
   const AUDIO_CACHE_NAME = 'warsh-audio-v5';
   const IMAGE_CACHE_NAME = 'warsh-images-v5';
   const DEDUP_CACHE_NAME = 'prayer-alarm-dedup-v2';
