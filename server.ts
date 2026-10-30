@@ -541,15 +541,6 @@ function renderInlinedHtml() {
       );
     }
   } catch {}
-  try {
-    const js = fs.readFileSync(path.resolve(__dirname, "public", "assets", "index-AXg4nBEh.js"), "utf8");
-    if (js) {
-      html = html.replace(
-        /<script>\s*\(function\(\)\s*\{\s*var s = document\.createElement\('script'\);[\s\S]*?<\/script>/,
-        () => `<script>${js}</script>`
-      );
-    }
-  } catch {}
   return html;
 }
 
@@ -663,8 +654,8 @@ function renderDownloadPage(fileTarget = "") {
         <span>🤖</span>
         <span>App Android (Pacchetto APK)</span>
       </div>
-      <div class="badge">Versione Ufficiale v43.0 • Firmato v1+v2 • Corano Warsh + Qibla</div>
-      <a href="/MuslimPro-Warsh.apk?v=43" download="MuslimPro-Warsh.apk" class="btn btn-emerald" id="btn-download-apk">
+      <div class="badge">Versione Ufficiale v44.0 • Firmato v1+v2 • Corano Warsh + Qibla</div>
+      <a href="/MuslimPro-Warsh.apk?v=44" download="MuslimPro-Warsh.apk" class="btn btn-emerald" id="btn-download-apk">
         <span>📦</span>
         <span>SCARICA MUSLIMPRO-WARSH.APK</span>
       </a>
@@ -675,7 +666,7 @@ function renderDownloadPage(fileTarget = "") {
         </div>
         <div class="step-item">
           <div class="step-num">2</div>
-          <div>Se avevi installato una vecchia versione di test con firma diversa, disinstalla prima la vecchia versione e poi installa questo pacchetto ufficiale v43.</div>
+          <div>Se avevi installato una vecchia versione di test con firma diversa, disinstalla prima la vecchia versione e poi installa questo pacchetto ufficiale v44.</div>
         </div>
         <div class="step-item">
           <div class="step-num">3</div>
@@ -713,7 +704,7 @@ function renderDownloadPage(fileTarget = "") {
       </div>
 
       <div style="font-weight: 700; font-size: 13px; color: #a7f3d0; margin: 12px 0 6px;">Oppure scarica il Profilo di Configurazione iOS:</div>
-      <a href="/MuslimPro-Warsh.mobileconfig" download="MuslimPro-Warsh-iOS.mobileconfig" class="btn btn-blue" id="btn-download-ios">
+      <a href="/MuslimPro-Warsh.mobileconfig?v=44" download="MuslimPro-Warsh-iOS.mobileconfig" class="btn btn-blue" id="btn-download-ios">
         <span>🍏</span>
         <span>SCARICA PROFILO IOS (.mobileconfig)</span>
       </a>
@@ -757,22 +748,22 @@ function renderDownloadPage(fileTarget = "") {
         showToast('Avvio download MuslimPro-Warsh.apk...');
         setTimeout(function() {
           var a = document.createElement('a');
-          a.href = '/MuslimPro-Warsh.apk';
+          a.href = '/MuslimPro-Warsh.apk?v=44';
           a.download = 'MuslimPro-Warsh.apk';
           document.body.appendChild(a);
           a.click();
           document.body.removeChild(a);
-        }, 500);
+        }, 300);
       } else if (file === 'ios') {
         showToast('Avvio download Profilo iOS...');
         setTimeout(function() {
           var a = document.createElement('a');
-          a.href = '/MuslimPro-Warsh.mobileconfig';
+          a.href = '/MuslimPro-Warsh.mobileconfig?v=44';
           a.download = 'MuslimPro-Warsh-iOS.mobileconfig';
           document.body.appendChild(a);
           a.click();
           document.body.removeChild(a);
-        }, 500);
+        }, 300);
       }
     })();
   </script>

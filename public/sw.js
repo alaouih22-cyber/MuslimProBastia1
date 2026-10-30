@@ -13,7 +13,7 @@
   }
 
   // Service Worker for MuslimPro Warsh - Offline & Push Notification Pop-up + Adhan Support
-  const CACHE_NAME = 'warsh-quran-v43';
+  const CACHE_NAME = 'warsh-quran-v44';
   const AUDIO_CACHE_NAME = 'warsh-audio-v5';
   const IMAGE_CACHE_NAME = 'warsh-images-v5';
   const DEDUP_CACHE_NAME = 'prayer-alarm-dedup-v2';
@@ -56,7 +56,7 @@
     const now = Date.now();
     const key = isTest ? 'standby_test' : (prayerId || 'generic_prayer');
     const keyCooldown = isTest ? 8000 : 12 * 60 * 1000;
-    const globalCooldown = isTest ? 8000 : 45000;
+    const globalCooldown = isTest ? 8000 : 10 * 60 * 1000;
 
     // 1. Synchronous in-memory check & lock BEFORE any await to eliminate race conditions
     const prevKeyTime = prayerFiredTimestamps.get(key) || 0;
