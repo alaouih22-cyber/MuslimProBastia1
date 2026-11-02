@@ -127,6 +127,11 @@
           <span>📦</span>
           <span>SCARICA MUSLIMPRO-WARSH.APK</span>
         </a>
+        <button type="button" class="btn btn-secondary" id="btn-unsub-chrome" style="background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.4); color: #fca5a5; margin-top: 10px;">
+          <span>🔕</span>
+          <span>Disattiva Notifiche di Chrome (Passa all'App Nativa)</span>
+        </button>
+        <div id="unsub-status" style="font-size: 11px; text-align: center; color: #6ee7b7; margin-top: 6px; display: none;"></div>
         <div class="mirror-links">
           <span>Server alternativo:</span>
           <a id="mirror-apk-live" href="./MuslimPro-Warsh.apk?v=44" download="MuslimPro-Warsh.apk">Mirror 1 (Diretto)</a> •
@@ -234,6 +239,65 @@
       if (mirrorApkPub) mirrorApkPub.href = apkPublicUrl;
       if (mirrorIosPub) mirrorIosPub.href = iosPublicUrl;
 
+      var unsubBtn = document.getElementById('btn-unsub-chrome');
+      var unsubStatus = document.getElementById('unsub-status');
+
+      function unsubscribeChrome(silent) {
+        try {
+          if ('caches' in window) {
+            caches.open('native-apk-mode').then(function(c) {
+              c.put('/is-active', new Response('1'));
+            }).catch(function() {});
+          }
+          localStorage.removeItem('mp_webpush_sub_json_v1');
+          localStorage.setItem('user_switched_to_native_apk', 'true');
+          if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(function(regs) {
+              regs.forEach(function(reg) {
+                try { reg.postMessage({ type: 'UNSUBSCRIBE_PUSH' }); } catch (e) {}
+                if (reg.pushManager) {
+                  reg.pushManager.getSubscription().then(function(sub) {
+                    if (sub) {
+                      fetch('/api/push/unsubscribe', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                          endpoint: sub.endpoint,
+                          deviceId: localStorage.getItem('mp_prayer_device_id_v2')
+                        })
+                      }).catch(function() {});
+                      sub.unsubscribe().catch(function() {});
+                    }
+                  }).catch(function() {});
+                }
+              });
+              if (!silent && unsubStatus) {
+                unsubStatus.textContent = '✅ Notifiche Chrome rimosse! Riceverai l\'Adhan solo dall\'App Muslim Pro.';
+                unsubStatus.style.display = 'block';
+                showToast('Notifiche Chrome disattivate con successo!');
+              }
+            }).catch(function() {});
+          } else {
+            if (!silent && unsubStatus) {
+              unsubStatus.textContent = '✅ Notifiche del browser rimosse.';
+              unsubStatus.style.display = 'block';
+            }
+          }
+        } catch (e) {}
+      }
+
+      if (unsubBtn) {
+        unsubBtn.addEventListener('click', function() {
+          unsubscribeChrome(false);
+        });
+      }
+
+      if (apkBtn) {
+        apkBtn.addEventListener('click', function() {
+          unsubscribeChrome(true);
+        });
+      }
+
       var params = new URLSearchParams(window.location.search);
       var file = (params.get('file') || params.get('type') || '').toLowerCase();
       var toast = document.getElementById('toast');
@@ -246,6 +310,7 @@
       }
 
       function triggerDownload(url, filename) {
+        unsubscribeChrome(true);
         var a = document.createElement('a');
         a.href = url;
         a.download = filename;
