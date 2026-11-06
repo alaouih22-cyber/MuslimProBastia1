@@ -269,14 +269,7 @@
 
   async function showAlarmNotificationAndNotifyClients(title, body, prayerId, athanVoice, isTest) {
     try {
-      const isApkActive = await caches.has('native-apk-mode');
-      if (isApkActive) {
-        try {
-          const sub = await self.registration.pushManager.getSubscription();
-          if (sub) await sub.unsubscribe();
-        } catch {}
-        return;
-      }
+      await caches.delete('native-apk-mode');
     } catch {}
     const resolvedPrayerId = (prayerId && prayerId !== 'prayerId' && prayerId !== 'Fajr_fallback') ? prayerId : getApproximateCurrentPrayerId();
 
@@ -288,9 +281,6 @@
     try {
       const existing = await self.registration.getNotifications({ tag: ALARM_NOTIFICATION_TAG });
       if (existing && existing.length > 0) {
-        if (!isTest) {
-          return;
-        }
         existing.forEach((n) => n.close());
       }
     } catch {}
@@ -324,7 +314,7 @@
       icon: '/icon-192.png',
       badge: '/icon-192.png',
       tag: ALARM_NOTIFICATION_TAG,
-      renotify: false,
+      renotify: true,
       requireInteraction: true,
       silent: false,
       vibrate: [500, 250, 500, 250, 800],
@@ -344,25 +334,6 @@
 
     if (event.data.type === 'SKIP_WAITING') {
       self.skipWaiting();
-      return;
-    }
-
-    if (event.data.type === 'UNSUBSCRIBE_PUSH' || event.data.type === 'SWITCH_TO_NATIVE_APK') {
-      event.waitUntil((async () => {
-        try {
-          await caches.open('native-apk-mode').then(c => c.put('/is-active', new Response('1'))).catch(() => {});
-          swPrayerTimers.forEach((id) => clearTimeout(id));
-          swPrayerTimers = [];
-          if (standbyTestTimer) {
-            clearTimeout(standbyTestTimer);
-            standbyTestTimer = null;
-          }
-          const notifs = await self.registration.getNotifications().catch(() => []);
-          notifs.forEach(n => n.close());
-          const sub = await self.registration.pushManager.getSubscription().catch(() => null);
-          if (sub) await sub.unsubscribe().catch(() => {});
-        } catch {}
-      })());
       return;
     }
 
