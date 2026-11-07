@@ -77,20 +77,20 @@
             var live = LIVE_BACKEND;
             var ts = Date.now();
             if (type === 'apk') {
-              var localApk = isLocalApkView ? (live + '/MuslimPro-Warsh.apk?v=48&t=' + ts) : ((base ? base : '') + '/MuslimPro-Warsh.apk?v=48&t=' + ts);
+              var localApk = isLocalApkView ? (live + '/MuslimPro-Warsh-v49.apk?v=49&t=' + ts) : ((base ? base : '') + '/MuslimPro-Warsh-v49.apk?v=49&t=' + ts);
               return {
-                page: isLocalApkView ? (live + '/download.html?file=apk&v=47') : ((base ? base : '') + '/download.html?file=apk&v=47'),
+                page: isLocalApkView ? (live + '/download.html?file=apk&v=49') : ((base ? base : '') + '/download.html?file=apk&v=49'),
                 direct: localApk,
                 fallback: localApk,
-                live: live + '/MuslimPro-Warsh.apk?v=48&t=' + ts
+                live: live + '/MuslimPro-Warsh-v49.apk?v=49&t=' + ts
               };
             }
-            var localIos = (base ? base : '') + '/MuslimPro-Warsh.mobileconfig?v=48&t=' + ts;
+            var localIos = (base ? base : '') + '/MuslimPro-Warsh.mobileconfig?v=49&t=' + ts;
             return {
-              page: (base ? base : '') + '/download.html?file=ios&v=47',
+              page: (base ? base : '') + '/download.html?file=ios&v=49',
               direct: localIos,
               fallback: localIos,
-              live: live + '/MuslimPro-Warsh.mobileconfig?v=48&t=' + ts
+              live: live + '/MuslimPro-Warsh.mobileconfig?v=49&t=' + ts
             };
           };
 
@@ -141,7 +141,7 @@
             try {
               var a = document.createElement('a');
               a.href = dlUrl;
-              a.setAttribute('download', 'MuslimPro-Warsh.apk');
+              a.setAttribute('download', 'MuslimPro-Warsh-v49.apk');
               a.style.display = 'none';
               document.body.appendChild(a);
               a.click();
@@ -397,7 +397,7 @@
           if (navigator.onLine && typeof caches !== 'undefined' && 'keys' in caches) {
             caches.keys().then(function (keys) {
               keys.forEach(function (k) {
-                if (k !== 'muslim-pro-bastia-offline-v48' && k !== 'warsh-quran-v48' && k !== 'prayer-alarm-dedup-v2' && k !== 'warsh-audio-v5' && k !== 'warsh-images-v5' && k !== 'native-apk-mode') {
+                if (k !== 'muslim-pro-bastia-offline-v49' && k !== 'warsh-quran-v49' && k !== 'prayer-alarm-dedup-v2' && k !== 'warsh-audio-v5' && k !== 'warsh-images-v5' && k !== 'native-apk-mode') {
                   caches.delete(k).catch(function () {});
                 }
               });
@@ -413,10 +413,10 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="Muslim Pro" />
     <meta name="theme-color" content="#0b2e26" />
-    <link rel="manifest" href="./manifest.json?v=48" />
-    <link rel="icon" type="image/png" sizes="192x192" href="./public/icon-192.png?v=48" />
-    <link rel="icon" type="image/svg+xml" href="./public/icon.svg?v=48" />
-    <link rel="apple-touch-icon" sizes="180x180" href="./public/apple-touch-icon.png?v=48" />
+    <link rel="manifest" href="./manifest.json?v=49" />
+    <link rel="icon" type="image/png" sizes="192x192" href="./public/icon-192.png?v=49" />
+    <link rel="icon" type="image/svg+xml" href="./public/icon.svg?v=49" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./public/apple-touch-icon.png?v=49" />
     <link rel="preload" as="image" href="./public/kaaba-bg.jpg" />
     <title>Muslim Pro - Bastia (iOS Edition)</title>
     <meta name="description" content="L'applicazione islamica completa per la comunità di Bastia su iPhone iOS: orari preghiera accurati, Qibla, Sacro Corano con audio, Tasbih e Adhkar." />
@@ -427,26 +427,38 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Scheherazade+New:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./public/assets/index-CypvtVfO.css?v=48" onerror="this.onerror=null;this.href='./assets/index-CypvtVfO.css?v=48';">
+    <link rel="stylesheet" href="./public/assets/index-CypvtVfO.css?v=49" onerror="this.onerror=null;this.href='./assets/index-CypvtVfO.css?v=49';">
   </head>
   <body class="bg-[#0b2e26] text-slate-50 antialiased selection:bg-emerald-500 selection:text-white">
     <div id="root">
       <div style="min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 20%,#134e40 0%,#09241e 100%);color:#ecfdf5;font-family:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif;text-align:center;padding:24px;">
         <div style="width:68px;height:68px;border-radius:22px;background:linear-gradient(145deg,rgba(16,185,129,0.24),rgba(6,78,59,0.45));border:1px solid rgba(110,231,183,0.38);box-shadow:0 16px 36px -8px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:32px;margin-bottom:16px;">🕌</div>
         <div style="font-size:20px;font-weight:800;letter-spacing:-0.02em;margin-bottom:6px;color:#ffffff;">Muslim Pro · Bastia</div>
-        <div style="font-size:13px;font-weight:500;color:#a7f3d0;opacity:0.88;">Inizializzazione interfaccia...</div>
+        <div style="font-size:13px;font-weight:500;color:#a7f3d0;opacity:0.88;">Inizializzazione interfaccia v49.0...</div>
       </div>
     </div>
     <script>
       (function() {
-        var s = document.createElement('script');
-        s.src = './public/assets/index-AXg4nBEh.js?v=48';
-        s.onerror = function() {
-          var f = document.createElement('script');
-          f.src = './assets/index-AXg4nBEh.js?v=48';
-          document.body.appendChild(f);
+        var isApkLocal = window.location.hostname === '127.0.0.1' || Boolean(window.AndroidNativeBridge);
+        var liveBase = window.__MP_LIVE_BACKEND || 'https://ais-dev-mr4e2i4eum4xde3afw2k4u-552873705925.europe-west3.run.app';
+        var loadLocalBundle = function() {
+          var s = document.createElement('script');
+          s.src = './public/assets/index-AXg4nBEh.js?v=49';
+          s.onerror = function() {
+            var f = document.createElement('script');
+            f.src = './assets/index-AXg4nBEh.js?v=49';
+            document.body.appendChild(f);
+          };
+          document.body.appendChild(s);
         };
-        document.body.appendChild(s);
+        if (isApkLocal && navigator.onLine) {
+          var liveScript = document.createElement('script');
+          liveScript.src = liveBase + '/public/assets/index-AXg4nBEh.js?v=49&t=' + Date.now();
+          liveScript.onerror = loadLocalBundle;
+          document.body.appendChild(liveScript);
+        } else {
+          loadLocalBundle();
+        }
       })();
     </script>
   </body>

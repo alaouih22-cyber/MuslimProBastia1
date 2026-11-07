@@ -1,0 +1,71 @@
+{
+  "posts": [
+    {
+      "id": "post_quran_1",
+      "createdAt": "2026-10-27T06:23:34.064Z",
+      "authorEmail": "alaouih22@gmail.com",
+      "commentsCount": 1,
+      "likedBy": [],
+      "category": "quran",
+      "content": "قال رسول الله ﷺ: «خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ» (رواه البخاري)\n\nIl Messaggero di Allah ﷺ ha detto: \"Il migliore tra voi è colui che impara il Corano e lo insegna agli altri\" (Sahih Al-Bukhari). Ricordiamo a tutti che potete leggere e ascoltare il Sacro Corano con lettura Warsh direttamente nella sezione Corano dell'app.",
+      "isAdmin": true,
+      "authorName": "MuslimProBastia",
+      "authorPhoto": "",
+      "authorId": "admin_alaoui",
+      "likesCount": 42,
+      "comments": [
+        {
+          "createdAt": "2026-10-27T17:23:34.064Z",
+          "content": "Alhamdulillah, la recitazione Warsh è bellissima e chiara.",
+          "id": "comm_3",
+          "authorName": "Youssef E.",
+          "authorId": "user_youssef"
+        }
+      ]
+    },
+    {
+      "id": "post_welcome_1",
+      "createdAt": "2026-10-26T18:23:34.064Z",
+      "authorId": "admin_alaoui",
+      "commentsCount": 2,
+      "authorName": "MuslimProBastia",
+      "category": "announcement",
+      "likedBy": [
+        "admin_alaoui"
+      ],
+      "content": "As-salamu alaykum wa rahmatullahi wa barakatuh a tutta la comunità di Bastia Umbra e dintorni. Benvenuti nello spazio comunitario ufficiale di MuslimProBastia! Qui condividiamo orari speciali, avvisi delle preghiere del Venerdì (Jumu'ah), lezioni e riflessioni spirituali.",
+      "authorPhoto": "",
+      "isAdmin": true,
+      "comments": [
+        {
+          "createdAt": "2026-10-27T13:23:34.064Z",
+          "content": "Barakallahu feekum per questa meravigliosa applicazione e per il lavoro che fate per la comunità!",
+          "authorId": "user_ahmed",
+          "id": "comm_1",
+          "authorName": "Ahmed B."
+        },
+        {
+          "authorId": "user_karim",
+          "createdAt": "2026-10-27T16:23:34.064Z",
+          "authorName": "Karim M.",
+          "id": "comm_2",
+          "content": "Masha Allah, davvero utilissima per seguire le preghiere e gli avvisi della moschea."
+        }
+      ],
+      "authorEmail": "alaouih22@gmail.com",
+      "likesCount": 28
+    }
+  ],
+  "alerts": [
+    {
+      "id": "alert_jumuah",
+      "authorName": "MuslimProBastia",
+      "createdAt": "2026-10-25T18:23:34.404Z",
+      "title": "Preghiera del Venerdì (Jumu'ah) a Bastia",
+      "category": "prayer",
+      "body": "Orario ufficiale della preghiera del Venerdì: tutti i venerdì la Khutbah si tiene alle 12:30. Si prega di venire con la wudu fatta e di rispettare le aree di sosta.",
+      "authorEmail": "alaouih22@gmail.com",
+      "authorId": "admin_alaoui"
+    }
+  ]
+}

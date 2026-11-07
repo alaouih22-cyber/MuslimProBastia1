@@ -435,10 +435,10 @@
   {
     "deviceId": "dev_mvo8fh60_08a9vnyk",
     "subscription": {
-      "endpoint": "https://fcm.googleapis.com/fcm/send/f0-uvAmviR4:APA91bFnGd7FVVAAuzbLNUcLhzDAsijWgdUBznUuhrIxjWlpz6tJUNXAcSOVoyA40bhju-aDdct6-nUi01ZnQX8eTKijbVm6uR3cxFztlyuiaBcpX_83FTlE8CiJOJ7z7hzkLgDaR-ho",
+      "endpoint": "https://fcm.googleapis.com/fcm/send/d3uhK7sZ-1o:APA91bERcSill7eSIY6-WG0NZR3bRiria77-qUeGlg5Ihwbd1VlPhCZ08rgmFGWOpeoR2SRbdgyEmVIkZjEL8VqxS-ANfLZCAUpKxojFgLJ7mZtafUVVdETnLPuLgVjReZcKRRC0MS8r",
       "keys": {
-        "p256dh": "BP2On1kPHV07JleIA1sz2Nw5wwzg_UsvCBNsxwPzT45gE1y90SyqIF-1g-mlRKP7SuGd2y6ZFX1jzqjkSFI9QJU",
-        "auth": "ms3pevQcOkGVfAZp8RArBw"
+        "p256dh": "BF7Lp9DAiOYiBNCamgOL1y5IabAYsiu5yR6ca9iAZHCAA3q6woLRBgP2FDU3K7Xi87L6Pobj-Cb3bM0sHia8QeM",
+        "auth": "wrQEzbmzS7UdPpbvQTnsDw"
       }
     },
     "locationName": "Bastia Umbra",
@@ -449,7 +449,7 @@
         "id": "Fajr",
         "nameIt": "Fajr",
         "nameAr": "الفجر",
-        "time": "05:24",
+        "time": "05:28",
         "alertMode": "sound"
       },
       {
@@ -463,21 +463,21 @@
         "id": "Asr",
         "nameIt": "Asr",
         "nameAr": "العصر",
-        "time": "14:40",
+        "time": "14:37",
         "alertMode": "sound"
       },
       {
         "id": "Maghrib",
         "nameIt": "Maghrib",
         "nameAr": "المغرب",
-        "time": "17:07",
+        "time": "17:03",
         "alertMode": "sound"
       },
       {
         "id": "Isha",
         "nameIt": "Isha",
         "nameAr": "العشاء",
-        "time": "18:25",
+        "time": "18:21",
         "alertMode": "sound"
       }
     ],
@@ -486,10 +486,10 @@
   {
     "deviceId": "dev_mvqwhmxx_0l0gpl0z",
     "subscription": {
-      "endpoint": "https://web.push.apple.com/QNiwR18NX4EVGBCmMtGpmppumpvDZKfTWXoLuMbVDgXOcLO_nperUy-24NT2qoe1_jiE7G6IeUDVthnaxxciBxsmUtavRhvYIv8qk8z6dNzDgsjk2HXbYq_c8swE7bdxXsraV5BFwOFcnC6DV91A_uO3t807hbFRdgumdCdOoak",
+      "endpoint": "https://web.push.apple.com/QMnXapHjMXoiDjjKlA6RHicb8V-J55U1d5mSmJWaWIkjBt_NuqFBBJ2m0cXo6ny0HFSJWJ0PqNVC5RJPEUM68mWQr0L3OsgbS6rYEiY1y13inEFa1yMIPYEbD94QxSWhxQBv2NGvArHAHb4lu8vncgmfwjptdJ49QD652P9O-Fg",
       "keys": {
-        "p256dh": "BCD1MN-PI2Rw9onq5wEJs5_slXCty9RvN5_XpRoRxMVcXobu510XlG50BUr25KSdy15CR-3SLFw3MNNSwGPchhI",
-        "auth": "h0j3r37ZFq4gHo2Pwt2Hcw"
+        "p256dh": "BHdny2fR4ms1CY0991P2DmhJgOQLJQf26UAxDthJvxUh4YP6hBGFS6Z8c6nb9_4BylQV18aX8-lo4UzzOD43S_U",
+        "auth": "90c7h1ywey7g3c0febttfA"
       }
     },
     "locationName": "Bastia Umbra",
@@ -500,7 +500,109 @@
         "id": "Fajr",
         "nameIt": "Fajr",
         "nameAr": "الفجر",
-        "time": "05:45",
+        "time": "05:31",
+        "alertMode": "sound"
+      },
+      {
+        "id": "Dhuhr",
+        "nameIt": "Dhuhr",
+        "nameAr": "الظهر",
+        "time": "11:56",
+        "alertMode": "sound"
+      },
+      {
+        "id": "Asr",
+        "nameIt": "Asr",
+        "nameAr": "العصر",
+        "time": "14:34",
+        "alertMode": "sound"
+      },
+      {
+        "id": "Maghrib",
+        "nameIt": "Maghrib",
+        "nameAr": "المغرب",
+        "time": "16:59",
+        "alertMode": "sound"
+      },
+      {
+        "id": "Isha",
+        "nameIt": "Isha",
+        "nameAr": "العشاء",
+        "time": "18:18",
+        "alertMode": "sound"
+      }
+    ],
+    "firedKeys": []
+  },
+  {
+    "deviceId": "dev_mw0mp318_5p4drzga",
+    "subscription": {
+      "endpoint": "https://fcm.googleapis.com/fcm/send/ddfYBlKLNQc:APA91bHu4fOwHcSo6TDu21WREoEdbyX5UxhGJYzyeolik1Ea7PUaFXWCe-EDVvIs6gUU2KFvTwSOVxvCNx5uOjKV9B7I4TZLQwY27a9uBQvf9XOdIm35nrLP-PMMjHgulanDnULDljz3",
+      "keys": {
+        "p256dh": "BLV0p4Tt0psDjZ2WDjAGm-hTur_9c67xmtPeRRMKYW8WLK96SaFt3Oc3aQDBcBZRf6ynZGTlSn8zi2Jy3oLfunc",
+        "auth": "wo3jGrqw4XCMoUmpN4yhAQ"
+      }
+    },
+    "locationName": "Bastia Umbra",
+    "timezone": "Europe/Rome",
+    "athanVoice": "./public/adhan.mp3",
+    "prayers": [
+      {
+        "id": "Fajr",
+        "nameIt": "Fajr",
+        "nameAr": "الفجر",
+        "time": "05:29",
+        "alertMode": "sound"
+      },
+      {
+        "id": "Dhuhr",
+        "nameIt": "Dhuhr",
+        "nameAr": "الظهر",
+        "time": "11:56",
+        "alertMode": "sound"
+      },
+      {
+        "id": "Asr",
+        "nameIt": "Asr",
+        "nameAr": "العصر",
+        "time": "14:36",
+        "alertMode": "sound"
+      },
+      {
+        "id": "Maghrib",
+        "nameIt": "Maghrib",
+        "nameAr": "المغرب",
+        "time": "17:01",
+        "alertMode": "sound"
+      },
+      {
+        "id": "Isha",
+        "nameIt": "Isha",
+        "nameAr": "العشاء",
+        "time": "18:20",
+        "alertMode": "sound"
+      }
+    ],
+    "firedKeys": []
+  },
+  {
+    "deviceId": "dev_mw0vr3z8_fs6zbuqg",
+    "subscription": {
+      "endpoint": "https://fcm.googleapis.com/fcm/send/c3VQH9z3Wac:APA91bE-wxomRBSSVYemR6Vp4OlanFO6qQZcxAo_lptQvX8BHvGX1pKsOIcXoUoAtPjctQxl1yAOvhqDEYsIfXZG5ydmUAdPh_h7RHW7o3De4ydJseQ4swfOFR1jOqAOfvn81Np6rmlc",
+      "keys": {
+        "p256dh": "BOPNEExwI-AP_bKG1qlEgjeHRO02IC51h9HxREviYmu_0Det3zM7REp3tfXG_uSU4Tmk15FbeDZGA8bODPRmbjg",
+        "auth": "3Iazo2hzRiKVbS2SfOiftg"
+      }
+    },
+    "locationName": "Bastia Umbra",
+    "timezone": "Europe/Rome",
+    "athanVoice": "./public/adhan.mp3",
+    "prayers": [
+      {
+        "id": "Fajr",
+        "nameIt": "Fajr",
+        "nameAr": "الفجر",
+        "time": "05:32",
         "alertMode": "sound"
       },
       {
@@ -521,14 +623,65 @@
         "id": "Maghrib",
         "nameIt": "Maghrib",
         "nameAr": "المغرب",
-        "time": "16:59",
+        "time": "16:58",
         "alertMode": "sound"
       },
       {
         "id": "Isha",
         "nameIt": "Isha",
         "nameAr": "العشاء",
-        "time": "18:01",
+        "time": "18:17",
+        "alertMode": "sound"
+      }
+    ],
+    "firedKeys": []
+  },
+  {
+    "deviceId": "dev_mw5bs4qj_0b12ax0w",
+    "subscription": {
+      "endpoint": "https://fcm.googleapis.com/fcm/send/fSsUG33ERPY:APA91bFzzWHxOYbsWX7rrDtaMygdw-s726Pnjm5FV3bu3dqLRFo-J5LOPGltE5VHVd7Z21lYueHl6_9lS9D0ub443urdOPPthePQj6P0e5xJ22bGvgC5eo7aIlIF9M_YD0TXOu0wltH-",
+      "keys": {
+        "p256dh": "BMGpJfXqO9jxZ7aMA4vLvcZsrjMc_743F3cQCamqwTCfCDJ6_M92hvJJp3uVsQGbQyd5YQGOWdtsq3Z-ByAjMVY",
+        "auth": "8nxcUvgy-PS1CsWkfxcaBw"
+      }
+    },
+    "locationName": "Bastia Umbra",
+    "timezone": "Europe/Rome",
+    "athanVoice": "./public/adhan.mp3",
+    "prayers": [
+      {
+        "id": "Fajr",
+        "nameIt": "Fajr",
+        "nameAr": "الفجر",
+        "time": "05:33",
+        "alertMode": "sound"
+      },
+      {
+        "id": "Dhuhr",
+        "nameIt": "Dhuhr",
+        "nameAr": "الظهر",
+        "time": "11:56",
+        "alertMode": "sound"
+      },
+      {
+        "id": "Asr",
+        "nameIt": "Asr",
+        "nameAr": "العصر",
+        "time": "14:32",
+        "alertMode": "sound"
+      },
+      {
+        "id": "Maghrib",
+        "nameIt": "Maghrib",
+        "nameAr": "المغرب",
+        "time": "16:57",
+        "alertMode": "sound"
+      },
+      {
+        "id": "Isha",
+        "nameIt": "Isha",
+        "nameAr": "العشاء",
+        "time": "18:16",
         "alertMode": "sound"
       }
     ],
