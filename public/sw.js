@@ -137,7 +137,8 @@
               name !== CACHE_NAME &&
               name !== AUDIO_CACHE_NAME &&
               name !== IMAGE_CACHE_NAME &&
-              name !== DEDUP_CACHE_NAME
+              name !== DEDUP_CACHE_NAME &&
+              name !== 'native-apk-mode'
             ) {
               return caches.delete(name);
             }
@@ -269,7 +270,14 @@
 
   async function showAlarmNotificationAndNotifyClients(title, body, prayerId, athanVoice, isTest) {
     try {
-      await caches.delete('native-apk-mode');
+      const hasNativeApkMode = await caches.has('native-apk-mode');
+      if (hasNativeApkMode) {
+        try {
+          const sub = await self.registration.pushManager.getSubscription();
+          if (sub) await sub.unsubscribe();
+        } catch {}
+        return;
+      }
     } catch {}
     const resolvedPrayerId = (prayerId && prayerId !== 'prayerId' && prayerId !== 'Fajr_fallback') ? prayerId : getApproximateCurrentPrayerId();
 
@@ -334,6 +342,21 @@
 
     if (event.data.type === 'SKIP_WAITING') {
       self.skipWaiting();
+      return;
+    }
+
+    if (event.data.type === 'CLEAR_PRAYER_SCHEDULE') {
+      swPrayerTimers.forEach((id) => clearTimeout(id));
+      swPrayerTimers = [];
+      caches.open('native-apk-mode').then((c) => c.put('/__apk_mode', new Response('1'))).catch(() => {});
+      self.registration.getNotifications({ tag: ALARM_NOTIFICATION_TAG }).then((notifications) => {
+        notifications.forEach((n) => n.close());
+      }).catch(() => {});
+      if (self.registration && self.registration.pushManager) {
+        self.registration.pushManager.getSubscription().then((sub) => {
+          if (sub) sub.unsubscribe().catch(() => {});
+        }).catch(() => {});
+      }
       return;
     }
 
