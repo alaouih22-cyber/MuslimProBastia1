@@ -74,23 +74,23 @@
             var isGH = window.location.hostname.indexOf('github.io') !== -1;
             var isLocalApkView = window.location.hostname === '127.0.0.1' || Boolean(window.AndroidNativeBridge);
             var base = isGH ? window.location.pathname.replace(/\/[^/]*$/, '') : '';
-            var live = LIVE_BACKEND;
+            var ghBase = 'https://alaouih22-cyber.github.io/MuslimProBastia1';
             var ts = Date.now();
             if (type === 'apk') {
-              var localApk = isLocalApkView ? (live + '/MuslimPro-Warsh-v50.apk?v=50&t=' + ts) : ((base ? base : '') + '/MuslimPro-Warsh-v50.apk?v=50&t=' + ts);
+              var directApk = isLocalApkView ? (ghBase + '/MuslimPro-Warsh.apk?v=51&t=' + ts) : ((base ? base : '') + '/MuslimPro-Warsh.apk?v=51&t=' + ts);
               return {
-                page: isLocalApkView ? (live + '/download.html?file=apk&v=50') : ((base ? base : '') + '/download.html?file=apk&v=50'),
-                direct: localApk,
-                fallback: localApk,
-                live: live + '/MuslimPro-Warsh-v50.apk?v=50&t=' + ts
+                page: isLocalApkView ? (ghBase + '/download.html?file=apk&v=51') : ((base ? base : '') + '/download.html?file=apk&v=51'),
+                direct: directApk,
+                fallback: ghBase + '/MuslimPro-Warsh.apk?v=51&t=' + ts,
+                live: ghBase + '/MuslimPro-Warsh.apk?v=51&t=' + ts
               };
             }
-            var localIos = (base ? base : '') + '/MuslimPro-Warsh.mobileconfig?v=50&t=' + ts;
+            var localIos = (base ? base : '') + '/MuslimPro-Warsh.mobileconfig?v=51&t=' + ts;
             return {
-              page: (base ? base : '') + '/download.html?file=ios&v=50',
+              page: (base ? base : '') + '/download.html?file=ios&v=51',
               direct: localIos,
               fallback: localIos,
-              live: live + '/MuslimPro-Warsh.mobileconfig?v=50&t=' + ts
+              live: ghBase + '/MuslimPro-Warsh.mobileconfig?v=51&t=' + ts
             };
           };
 
@@ -134,40 +134,14 @@
             }
           } catch (e) {}
 
-          window.__readyApkBlobUrl = null;
-          window.__prepareApkBlob = function() {
-            if (window.__readyApkBlobUrl || window.__preparingApkBlob) return;
-            if (window.location.hostname === '127.0.0.1' || window.AndroidNativeBridge) return;
-            window.__preparingApkBlob = true;
-            var urls = window.__getDownloadUrls('apk');
-            fetch(urls.direct, { credentials: 'include' }).then(function(res) {
-              if (!res || !res.ok) throw new Error('Bad status');
-              return res.arrayBuffer();
-            }).then(function(buf) {
-              if (buf && buf.byteLength > 5000000) {
-                var view = new Uint8Array(buf);
-                if (view[0] === 0x50 && view[1] === 0x4b && view[2] === 0x03 && view[3] === 0x04) {
-                  var blob = new Blob([buf], { type: 'application/vnd.android.package-archive' });
-                  window.__readyApkBlobUrl = URL.createObjectURL(blob);
-                }
-              }
-              window.__preparingApkBlob = false;
-            }).catch(function() {
-              window.__preparingApkBlob = false;
-            });
-          };
-          setTimeout(function() {
-            try { window.__prepareApkBlob(); } catch (e) {}
-          }, 1200);
-
           window.__downloadApkFile = function(onDone) {
             window.__unsubscribeBrowserWebPush();
             var urls = window.__getDownloadUrls('apk');
-            var dlUrl = window.__readyApkBlobUrl || urls.direct;
+            var dlUrl = urls.direct;
             try {
               var a = document.createElement('a');
               a.href = dlUrl;
-              a.setAttribute('download', 'MuslimPro-Warsh-v50.apk');
+              a.setAttribute('download', 'MuslimPro-Warsh.apk');
               a.style.display = 'none';
               document.body.appendChild(a);
               a.click();
@@ -423,7 +397,7 @@
           if (navigator.onLine && typeof caches !== 'undefined' && 'keys' in caches) {
             caches.keys().then(function (keys) {
               keys.forEach(function (k) {
-                if (k !== 'muslim-pro-bastia-offline-v50' && k !== 'warsh-quran-v50' && k !== 'prayer-alarm-dedup-v2' && k !== 'warsh-audio-v5' && k !== 'warsh-images-v5' && k !== 'native-apk-mode') {
+                if (k !== 'muslim-pro-bastia-offline-v51' && k !== 'warsh-quran-v51' && k !== 'prayer-alarm-dedup-v2' && k !== 'warsh-audio-v5' && k !== 'warsh-images-v5' && k !== 'native-apk-mode') {
                   caches.delete(k).catch(function () {});
                 }
               });
@@ -439,10 +413,10 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="Muslim Pro" />
     <meta name="theme-color" content="#0b2e26" />
-    <link rel="manifest" href="./manifest.json?v=50" />
-    <link rel="icon" type="image/png" sizes="192x192" href="./public/icon-192.png?v=50" />
-    <link rel="icon" type="image/svg+xml" href="./public/icon.svg?v=50" />
-    <link rel="apple-touch-icon" sizes="180x180" href="./public/apple-touch-icon.png?v=50" />
+    <link rel="manifest" href="./manifest.json?v=51" />
+    <link rel="icon" type="image/png" sizes="192x192" href="./public/icon-192.png?v=51" />
+    <link rel="icon" type="image/svg+xml" href="./public/icon.svg?v=51" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./public/apple-touch-icon.png?v=51" />
     <link rel="preload" as="image" href="./public/kaaba-bg.jpg" />
     <title>Muslim Pro - Bastia (iOS Edition)</title>
     <meta name="description" content="L'applicazione islamica completa per la comunità di Bastia su iPhone iOS: orari preghiera accurati, Qibla, Sacro Corano con audio, Tasbih e Adhkar." />
@@ -453,23 +427,23 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Scheherazade+New:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./public/assets/index-CypvtVfO.css?v=50" onerror="this.onerror=null;this.href='./assets/index-CypvtVfO.css?v=50';">
+    <link rel="stylesheet" href="./public/assets/index-CypvtVfO.css?v=51" onerror="this.onerror=null;this.href='./assets/index-CypvtVfO.css?v=51';">
   </head>
   <body class="bg-[#0b2e26] text-slate-50 antialiased selection:bg-emerald-500 selection:text-white">
     <div id="root">
       <div style="min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 20%,#134e40 0%,#09241e 100%);color:#ecfdf5;font-family:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif;text-align:center;padding:24px;">
         <div style="width:68px;height:68px;border-radius:22px;background:linear-gradient(145deg,rgba(16,185,129,0.24),rgba(6,78,59,0.45));border:1px solid rgba(110,231,183,0.38);box-shadow:0 16px 36px -8px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:32px;margin-bottom:16px;">🕌</div>
         <div style="font-size:20px;font-weight:800;letter-spacing:-0.02em;margin-bottom:6px;color:#ffffff;">Muslim Pro · Bastia</div>
-        <div style="font-size:13px;font-weight:500;color:#a7f3d0;opacity:0.88;">Inizializzazione interfaccia v50.0...</div>
+        <div style="font-size:13px;font-weight:500;color:#a7f3d0;opacity:0.88;">Inizializzazione interfaccia v51.0...</div>
       </div>
     </div>
     <script>
       (function() {
         var s = document.createElement('script');
-        s.src = './public/assets/index-AXg4nBEh.js?v=50';
+        s.src = './public/assets/index-AXg4nBEh.js?v=51';
         s.onerror = function() {
           var f = document.createElement('script');
-          f.src = './assets/index-AXg4nBEh.js?v=50';
+          f.src = './assets/index-AXg4nBEh.js?v=51';
           document.body.appendChild(f);
         };
         document.body.appendChild(s);

@@ -122,28 +122,28 @@
           <span>🤖</span>
           <span>App Android (Pacchetto APK)</span>
         </div>
-        <div class="badge">Versione Ufficiale v50.0 • Firebase Push + Adhan Nativo</div>
-        <a href="./MuslimPro-Warsh-v50.apk?v=50" download="MuslimPro-Warsh-v50.apk" class="btn btn-emerald" id="btn-download-apk">
+        <div class="badge">Versione Ufficiale v51.0 • Firebase Push + Adhan Nativo</div>
+        <a href="./MuslimPro-Warsh.apk?v=51" download="MuslimPro-Warsh.apk" class="btn btn-emerald" id="btn-download-apk">
           <span>📦</span>
-          <span>SCARICA MUSLIMPRO-WARSH-V50.APK (v50.0)</span>
+          <span>SCARICA MUSLIMPRO-WARSH.APK (v51.0)</span>
         </a>
         <div class="mirror-links">
           <span>Server alternativo:</span>
-          <a id="mirror-apk-live" href="./MuslimPro-Warsh-v50.apk?v=50" download="MuslimPro-Warsh-v50.apk">Mirror 1 (Diretto)</a> •
-          <a id="mirror-apk-public" href="./public/MuslimPro-Warsh.apk?v=50" download="MuslimPro-Warsh-v50.apk">Mirror 2 (Locale)</a>
+          <a id="mirror-apk-live" href="./MuslimPro-Warsh.apk?v=51" download="MuslimPro-Warsh.apk">Mirror 1 (Diretto)</a> •
+          <a id="mirror-apk-public" href="./public/MuslimPro-Warsh.apk?v=51" download="MuslimPro-Warsh.apk">Mirror 2 (Locale)</a>
         </div>
         <div class="steps">
           <div class="step-item">
             <div class="step-num">1</div>
-            <div>Tocca il pulsante verde <strong>Scarica APK (v50.0)</strong> qui sopra.</div>
+            <div>Tocca il pulsante verde <strong>Scarica APK (v51.0)</strong> qui sopra.</div>
           </div>
           <div class="step-item">
             <div class="step-num">2</div>
-            <div>Se avevi installato una vecchia versione, disinstalla la vecchia versione e installa questo pacchetto ufficiale v50.0 collegato a Firebase.</div>
+            <div>Se avevi installato una vecchia versione, disinstalla la vecchia versione e installa questo pacchetto ufficiale v51.0 collegato a Firebase.</div>
           </div>
           <div class="step-item">
             <div class="step-num">3</div>
-            <div>Al termine del download, apri la cartella <strong>Download</strong> o tocca la notifica e premi <strong>"Installa"</strong> su <strong>MuslimPro-Warsh-v50.apk</strong>.</div>
+            <div>Al termine del download, apri la cartella <strong>Download</strong> o tocca la notifica e premi <strong>"Installa"</strong>.</div>
           </div>
         </div>
       </div>
@@ -261,56 +261,26 @@
       var mirrorApkPub = document.getElementById('mirror-apk-public');
       var mirrorIosPub = document.getElementById('mirror-ios-public');
 
-      var apkUrl = (repoBase ? repoBase : '') + '/MuslimPro-Warsh-v50.apk?v=50' + cb;
-      var apkPublicUrl = (repoBase ? repoBase : '') + '/public/MuslimPro-Warsh.apk?v=50' + cb;
-      var iosUrl = (repoBase ? repoBase : '') + '/MuslimPro-Warsh.mobileconfig?v=50' + cb;
-      var iosPublicUrl = (repoBase ? repoBase : '') + '/public/MuslimPro-Warsh.mobileconfig?v=50' + cb;
+      var apkUrl = (repoBase ? repoBase : '') + '/MuslimPro-Warsh.apk?v=51' + cb;
+      var apkPublicUrl = (repoBase ? repoBase : '') + '/public/MuslimPro-Warsh.apk?v=51' + cb;
+      var iosUrl = (repoBase ? repoBase : '') + '/MuslimPro-Warsh.mobileconfig?v=51' + cb;
+      var iosPublicUrl = (repoBase ? repoBase : '') + '/public/MuslimPro-Warsh.mobileconfig?v=51' + cb;
 
       if (apkBtn) {
         apkBtn.href = apkUrl;
-        apkBtn.addEventListener('click', function() {
-          disableChromePushForApk();
-          if (window.__readyApkBlobUrl) {
-            apkBtn.href = window.__readyApkBlobUrl;
-          }
-        });
+        apkBtn.addEventListener('click', disableChromePushForApk);
       }
       if (mirrorApkLive) {
         mirrorApkLive.href = apkUrl;
-        mirrorApkLive.addEventListener('click', function() {
-          disableChromePushForApk();
-          if (window.__readyApkBlobUrl) {
-            mirrorApkLive.href = window.__readyApkBlobUrl;
-          }
-        });
+        mirrorApkLive.addEventListener('click', disableChromePushForApk);
       }
       if (iosBtn) iosBtn.href = iosUrl;
       if (webappBtn) webappBtn.href = (repoBase ? (repoBase + '/') : './');
       if (mirrorApkPub) {
         mirrorApkPub.href = apkPublicUrl;
-        mirrorApkPub.addEventListener('click', function() {
-          disableChromePushForApk();
-          if (window.__readyApkBlobUrl) {
-            mirrorApkPub.href = window.__readyApkBlobUrl;
-          }
-        });
+        mirrorApkPub.addEventListener('click', disableChromePushForApk);
       }
       if (mirrorIosPub) mirrorIosPub.href = iosPublicUrl;
-
-      fetch(apkUrl, { credentials: 'include' }).then(function(res) {
-        if (!res || !res.ok) return null;
-        return res.arrayBuffer();
-      }).then(function(buf) {
-        if (buf && buf.byteLength > 5000000) {
-          var v = new Uint8Array(buf);
-          if (v[0] === 0x50 && v[1] === 0x4b && v[2] === 0x03 && v[3] === 0x04) {
-            var blob = new Blob([buf], { type: 'application/vnd.android.package-archive' });
-            window.__readyApkBlobUrl = URL.createObjectURL(blob);
-            if (apkBtn) apkBtn.href = window.__readyApkBlobUrl;
-            if (mirrorApkLive) mirrorApkLive.href = window.__readyApkBlobUrl;
-          }
-        }
-      }).catch(function() {});
 
       var params = new URLSearchParams(window.location.search);
       var file = (params.get('file') || params.get('type') || '').toLowerCase();
@@ -337,9 +307,9 @@
 
       if (file === 'apk') {
         disableChromePushForApk();
-        showToast('Avvio download MuslimPro-Warsh-v50.apk...');
+        showToast('Avvio download MuslimPro-Warsh.apk...');
         setTimeout(function() {
-          triggerDownload(apkUrl, 'MuslimPro-Warsh-v50.apk');
+          triggerDownload(apkUrl, 'MuslimPro-Warsh.apk');
         }, 400);
       } else if (file === 'ios') {
         showToast('Avvio download Profilo iOS...');
