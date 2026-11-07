@@ -59,8 +59,9 @@
           };
 
           // Smart API & Static Asset Fallback for GitHub Pages / Static Hosting / Android APK
-          var LIVE_BACKEND = 'https://ais-pre-mr4e2i4eum4xde3afw2k4u-552873705925.europe-west3.run.app';
           var LIVE_BACKEND_DEV = 'https://ais-dev-mr4e2i4eum4xde3afw2k4u-552873705925.europe-west3.run.app';
+          var LIVE_BACKEND_PRE = 'https://ais-pre-mr4e2i4eum4xde3afw2k4u-552873705925.europe-west3.run.app';
+          var LIVE_BACKEND = (window.location.hostname.indexOf('run.app') !== -1) ? window.location.origin : LIVE_BACKEND_DEV;
           window.__MP_LIVE_BACKEND = LIVE_BACKEND;
           var isStaticHost = window.location.hostname.indexOf('github.io') !== -1 ||
                              window.location.hostname.indexOf('vercel.app') !== -1 ||
@@ -71,23 +72,25 @@
 
           window.__getDownloadUrls = function(type) {
             var isGH = window.location.hostname.indexOf('github.io') !== -1;
+            var isLocalApkView = window.location.hostname === '127.0.0.1' || Boolean(window.AndroidNativeBridge);
             var base = isGH ? window.location.pathname.replace(/\/[^/]*$/, '') : '';
             var live = LIVE_BACKEND;
+            var ts = Date.now();
             if (type === 'apk') {
-              var localApk = (base ? base : '') + '/MuslimPro-Warsh.apk?v=46';
+              var localApk = isLocalApkView ? (live + '/MuslimPro-Warsh.apk?v=47&t=' + ts) : ((base ? base : '') + '/MuslimPro-Warsh.apk?v=47&t=' + ts);
               return {
-                page: (base ? base : '') + '/download.html?file=apk',
+                page: isLocalApkView ? (live + '/download.html?file=apk&v=47') : ((base ? base : '') + '/download.html?file=apk&v=47'),
                 direct: localApk,
                 fallback: localApk,
-                live: live + '/MuslimPro-Warsh.apk?v=46'
+                live: live + '/MuslimPro-Warsh.apk?v=47&t=' + ts
               };
             }
-            var localIos = (base ? base : '') + '/MuslimPro-Warsh.mobileconfig?v=46';
+            var localIos = (base ? base : '') + '/MuslimPro-Warsh.mobileconfig?v=47&t=' + ts;
             return {
-              page: (base ? base : '') + '/download.html?file=ios',
+              page: (base ? base : '') + '/download.html?file=ios&v=47',
               direct: localIos,
               fallback: localIos,
-              live: live + '/MuslimPro-Warsh.mobileconfig?v=46'
+              live: live + '/MuslimPro-Warsh.mobileconfig?v=47&t=' + ts
             };
           };
 
@@ -385,8 +388,8 @@
       }, { capture: true, passive: false });
       (function () {
         try {
-          if (!localStorage.getItem('mp_sw_migrated_v46') && 'serviceWorker' in navigator && navigator.serviceWorker) {
-            localStorage.setItem('mp_sw_migrated_v46', '1');
+          if (!localStorage.getItem('mp_sw_migrated_v47') && 'serviceWorker' in navigator && navigator.serviceWorker) {
+            localStorage.setItem('mp_sw_migrated_v47', '1');
             navigator.serviceWorker.getRegistrations().then(function (regs) {
               regs.forEach(function (r) { r.update().catch(function () {}); });
             }).catch(function () {});
@@ -394,7 +397,7 @@
           if (navigator.onLine && typeof caches !== 'undefined' && 'keys' in caches) {
             caches.keys().then(function (keys) {
               keys.forEach(function (k) {
-                if (k !== 'muslim-pro-bastia-offline-v46' && k !== 'warsh-quran-v46' && k !== 'prayer-alarm-dedup-v2' && k !== 'warsh-audio-v5' && k !== 'warsh-images-v5' && k !== 'native-apk-mode') {
+                if (k !== 'muslim-pro-bastia-offline-v47' && k !== 'warsh-quran-v47' && k !== 'prayer-alarm-dedup-v2' && k !== 'warsh-audio-v5' && k !== 'warsh-images-v5' && k !== 'native-apk-mode') {
                   caches.delete(k).catch(function () {});
                 }
               });
@@ -410,10 +413,10 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="Muslim Pro" />
     <meta name="theme-color" content="#0b2e26" />
-    <link rel="manifest" href="./manifest.json?v=45" />
-    <link rel="icon" type="image/png" sizes="192x192" href="./public/icon-192.png?v=45" />
-    <link rel="icon" type="image/svg+xml" href="./public/icon.svg?v=45" />
-    <link rel="apple-touch-icon" sizes="180x180" href="./public/apple-touch-icon.png?v=45" />
+    <link rel="manifest" href="./manifest.json?v=47" />
+    <link rel="icon" type="image/png" sizes="192x192" href="./public/icon-192.png?v=47" />
+    <link rel="icon" type="image/svg+xml" href="./public/icon.svg?v=47" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./public/apple-touch-icon.png?v=47" />
     <link rel="preload" as="image" href="./public/kaaba-bg.jpg" />
     <title>Muslim Pro - Bastia (iOS Edition)</title>
     <meta name="description" content="L'applicazione islamica completa per la comunità di Bastia su iPhone iOS: orari preghiera accurati, Qibla, Sacro Corano con audio, Tasbih e Adhkar." />
@@ -424,7 +427,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Scheherazade+New:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./public/assets/index-CypvtVfO.css?v=45" onerror="this.onerror=null;this.href='./assets/index-CypvtVfO.css?v=45';">
+    <link rel="stylesheet" href="./public/assets/index-CypvtVfO.css?v=47" onerror="this.onerror=null;this.href='./assets/index-CypvtVfO.css?v=47';">
   </head>
   <body class="bg-[#0b2e26] text-slate-50 antialiased selection:bg-emerald-500 selection:text-white">
     <div id="root">
@@ -437,10 +440,10 @@
     <script>
       (function() {
         var s = document.createElement('script');
-        s.src = './public/assets/index-AXg4nBEh.js?v=45';
+        s.src = './public/assets/index-AXg4nBEh.js?v=47';
         s.onerror = function() {
           var f = document.createElement('script');
-          f.src = './assets/index-AXg4nBEh.js?v=45';
+          f.src = './assets/index-AXg4nBEh.js?v=47';
           document.body.appendChild(f);
         };
         document.body.appendChild(s);
