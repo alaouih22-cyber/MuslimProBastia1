@@ -27,6 +27,20 @@
     '/apple-touch-icon.png',
     '/favicon.ico',
     '/adhan.mp3',
+    '/voices/makkah.mp3',
+    '/voices/madina.mp3',
+    '/voices/morocco.mp3',
+    '/voices/alafasy.mp3',
+    '/voices/abdulbasit.mp3',
+    '/voices/alaqsa.mp3',
+    '/voices/fajr.mp3',
+    '/public/voices/makkah.mp3',
+    '/public/voices/madina.mp3',
+    '/public/voices/morocco.mp3',
+    '/public/voices/alafasy.mp3',
+    '/public/voices/abdulbasit.mp3',
+    '/public/voices/alaqsa.mp3',
+    '/public/voices/fajr.mp3',
     '/kaaba-bg.jpg',
     '/quran-bg.jpg',
     '/warsh-p001.webp',
@@ -40,6 +54,8 @@
     '/audio/001006.mp3',
     '/audio/001007.mp3',
   ];
+
+  let selectedAthanVoice = 'makkah';
 
   // Single unified alarm tag and synchronous deduplication lock to prevent duplicate notifications
   const ALARM_NOTIFICATION_TAG = 'prayer-adhan-alarm';
@@ -257,12 +273,13 @@
       includeUncontrolled: true,
     });
     const resolvedPrayerId = (prayerId && prayerId !== 'prayerId' && prayerId !== 'Fajr_fallback') ? prayerId : getApproximateCurrentPrayerId();
+    const resolvedVoice = athanVoice || selectedAthanVoice;
     for (const client of clientList) {
       try {
         client.postMessage({
           type: 'PLAY_ATHAN',
           prayerId: resolvedPrayerId,
-          athanVoice: athanVoice || (resolvedPrayerId === 'Fajr' ? 'fajr' : 'makkah'),
+          athanVoice: resolvedVoice,
         });
       } catch {}
     }
@@ -280,6 +297,7 @@
       }
     } catch {}
     const resolvedPrayerId = (prayerId && prayerId !== 'prayerId' && prayerId !== 'Fajr_fallback') ? prayerId : getApproximateCurrentPrayerId();
+    const resolvedVoice = athanVoice || selectedAthanVoice;
 
     const allowed = await canShowAlarmNotification(resolvedPrayerId, Boolean(isTest));
     if (!allowed) {
@@ -315,7 +333,7 @@
       ? body
       : `È arrivato il tempo della preghiera di ${prayerNameMap[resolvedPrayerId] || resolvedPrayerId}.`;
 
-    await broadcastPlayAthan(resolvedPrayerId, athanVoice);
+    await broadcastPlayAthan(resolvedPrayerId, resolvedVoice);
 
     await self.registration.showNotification(resolvedTitle, {
       body: resolvedBody,
@@ -328,7 +346,7 @@
       vibrate: [500, 250, 500, 250, 800],
       data: {
         prayerId: resolvedPrayerId,
-        athanVoice: athanVoice || (resolvedPrayerId === 'Fajr' ? 'fajr' : 'makkah'),
+        athanVoice: resolvedVoice,
       },
       actions: [
         { action: 'stop', title: '⏹ Ferma Adhan' },
@@ -342,6 +360,13 @@
 
     if (event.data.type === 'SKIP_WAITING') {
       self.skipWaiting();
+      return;
+    }
+
+    if (event.data.type === 'SET_ADHAN_VOICE') {
+      if (event.data.athanVoice) {
+        selectedAthanVoice = event.data.athanVoice;
+      }
       return;
     }
 
@@ -368,12 +393,13 @@
     }
 
     if (event.data.type === 'SHOW_PRAYER_NOTIFICATION') {
+      if (event.data.athanVoice) selectedAthanVoice = event.data.athanVoice;
       event.waitUntil(
         showAlarmNotificationAndNotifyClients(
           event.data.title,
           event.data.body,
           event.data.prayerId,
-          event.data.athanVoice,
+          event.data.athanVoice || selectedAthanVoice,
           Boolean(event.data.isTest)
         )
       );
@@ -384,6 +410,7 @@
     if (event.data.type === 'SCHEDULE_PRAYER_NOTIFICATIONS') {
       swPrayerTimers.forEach((id) => clearTimeout(id));
       swPrayerTimers = [];
+      if (event.data.athanVoice) selectedAthanVoice = event.data.athanVoice;
 
       const prayers = event.data.prayers || [];
       const locationName = event.data.locationName || 'Bastia Umbra';
@@ -398,7 +425,7 @@
               `🕌 صلاة ${p.nameAr || ''} • ${p.nameIt || p.id}`,
               `حان الآن وقت الصلاة (${p.time}) • ${locationName}`,
               p.id,
-              p.id === 'Fajr' ? 'fajr' : 'makkah',
+              p.athanVoice || selectedAthanVoice,
               false
             );
           }, delay);
@@ -413,6 +440,7 @@
         clearTimeout(standbyTestTimer);
         standbyTestTimer = null;
       }
+      if (event.data.athanVoice) selectedAthanVoice = event.data.athanVoice;
       const delayMs = (event.data.delayMs || 10000) + 1500;
       const prayerId = event.data.prayerId || getApproximateCurrentPrayerId();
       const prayerName = event.data.prayerName || (prayerId === 'Fajr' ? 'Fajr' : prayerId === 'Dhuhr' ? 'Dhuhr' : prayerId === 'Asr' ? 'Asr' : prayerId === 'Maghrib' ? 'Maghrib' : 'Isha');
@@ -423,7 +451,7 @@
           `🕌 صلاة ${prayerNameAr} • ${prayerName}`,
           `حان الآن وقت الصلاة (${prayerName}) • È entrato il tempo della preghiera.`,
           prayerId,
-          prayerId === 'Fajr' ? 'fajr' : 'makkah',
+          selectedAthanVoice,
           true
         );
       }, delayMs);
@@ -437,7 +465,7 @@
       title: '🕌 Adhan — MuslimPro Warsh',
       body: 'È l\'ora della preghiera.',
       prayerId: currentApproxPrayer,
-      sound: currentApproxPrayer === 'Fajr' ? 'fajr' : 'makkah',
+      sound: selectedAthanVoice,
       isTest: false,
     };
 
